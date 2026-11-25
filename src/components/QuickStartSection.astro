@@ -71,7 +71,7 @@ const codeTabs = [
 <section class="h2-section" id="quickstart">
   <div class="h2-container">
     <div class="h2-section-header h2-section-header--center">
-      <span class="h2-eyebrow">快速安装与上手流程</span>
+      <span class="h2-section-kicker">Quick Start · Skill Driven</span>
       <h2 class="h2-section-title">全程 Agent + Skill 驱动，无需手敲繁琐命令</h2>
       <p class="h2-section-desc">
         先用 <a class="qs-inline-link" href="/guide/install/"><code>herdr2-install</code> Skill</a> 一键装好环境，再打开
@@ -143,10 +143,6 @@ const codeTabs = [
   </div>
 </section>
 
-<div class="h2-lightbox" id="h2-lightbox" role="dialog" aria-modal="true" aria-label="图片放大预览">
-  <img id="h2-lightbox-img" src="" alt="" />
-</div>
-
 <script>
   // Feature Tabs switching
   document.querySelectorAll('[data-ft-tab]').forEach((btn) => {
@@ -195,27 +191,6 @@ const codeTabs = [
       const activePre = document.querySelector('.qs-pre.is-active code');
       if (activePre?.textContent) copyText(activePre.textContent.trim(), btn);
     });
-  });
-
-  // Image Zoom Lightbox
-  const lightbox = document.getElementById('h2-lightbox');
-  const lightboxImg = document.getElementById('h2-lightbox-img') as HTMLImageElement | null;
-
-  document.querySelectorAll('img.h2-zoomable').forEach((img) => {
-    img.addEventListener('click', () => {
-      if (!lightbox || !lightboxImg) return;
-      lightboxImg.src = (img as HTMLImageElement).src;
-      lightboxImg.alt = (img as HTMLImageElement).alt;
-      lightbox.classList.add('is-open');
-    });
-  });
-
-  lightbox?.addEventListener('click', () => {
-    lightbox.classList.remove('is-open');
-  });
-
-  document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape') lightbox?.classList.remove('is-open');
   });
 </script>
 

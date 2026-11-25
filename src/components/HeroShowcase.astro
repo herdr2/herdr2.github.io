@@ -79,18 +79,18 @@ const installPrompt = isEn
       <div class="hero-install-box" role="region" aria-label="herdr2-install skill">
         <div class="hero-install-top">
           <div class="hero-install-label">
-            <span class="hero-skill-badge">herdr2-install Skill</span>
+            <span class="hero-skill-badge">herdr2-install</span>
             <span>
               {
                 isEn
-                  ? 'Send to Antigravity / Claude Code / Codex / Cursor'
-                  : '发给 AI 助手（Antigravity / Claude Code / Codex / Cursor）自动安装'
+                  ? 'Paste to Antigravity / Claude Code / Codex / Cursor'
+                  : '发送给 Antigravity / Claude Code / Codex / Cursor 自动安装'
               }
             </span>
           </div>
           <div class="hero-install-actions">
             <a class="hero-skill-link" href="/skills/herdr2-install/SKILL.md" target="_blank">
-              {isEn ? 'View SKILL.md' : '查看 SKILL.md'}
+              {isEn ? 'SKILL.md ↗' : '查看 SKILL.md ↗'}
             </a>
             <button
               type="button"
@@ -98,7 +98,7 @@ const installPrompt = isEn
               data-copy-target="hero-install-code"
               aria-label={isEn ? 'Copy install prompt' : '复制安装指令'}
             >
-              {isEn ? 'Copy' : '复制'}
+              {isEn ? 'Copy' : '复制指令'}
             </button>
           </div>
         </div>
@@ -106,31 +106,26 @@ const installPrompt = isEn
           <code id="hero-install-code">{installPrompt}</code>
         </div>
       </div>
-
-      <div class="hero-pills">
-        <span>Harness of Harnesses · ADE</span>
-        <span>{isEn ? 'Always-On Background Daemon' : 'Agent 后台常驻不掉线'}</span>
-        <span>{isEn ? 'Native Drove DAG Orchestration' : 'Drove 原生 DAG 编排'}</span>
-        <span>{isEn ? 'Built-in Global Core AI' : '自带全局 Core AI 能力'}</span>
-      </div>
     </div>
 
     <div class="hero-stage">
-      <div class="h2-window">
-        <div class="h2-window-bar">
-          <div class="h2-window-dots" aria-hidden="true">
-            <span></span><span></span><span></span>
+      <div class="hero-bezel">
+        <div class="h2-window">
+          <div class="h2-window-bar">
+            <div class="h2-window-dots" aria-hidden="true">
+              <span></span><span></span><span></span>
+            </div>
+            <span>Herdr2 — order-service · main · h2 daemon running</span>
+            <span>GPUI Native</span>
           </div>
-          <span>Herdr2 — order-service · main · h2 daemon running</span>
-          <span>GPUI Native</span>
+          <img
+            src="/images/docs/02-workspace-overview.png"
+            alt={isEn ? 'Herdr2 Desktop Workspace Overview' : 'Herdr2 主工作台全景真实截图'}
+            class="hero-screenshot h2-zoomable"
+            loading="eager"
+            decoding="async"
+          />
         </div>
-        <img
-          src="/images/docs/02-workspace-overview.png"
-          alt={isEn ? 'Herdr2 Desktop Workspace Overview' : 'Herdr2 主工作台全景真实截图'}
-          class="hero-screenshot h2-zoomable"
-          loading="eager"
-          decoding="async"
-        />
       </div>
     </div>
   </div>
@@ -145,11 +140,11 @@ const installPrompt = isEn
   }
 
   .hero-title {
-    margin: 1.2rem 0 1rem;
-    font-size: clamp(1.9rem, 4.2vw, 3.25rem);
+    margin: 1.35rem 0 1.1rem;
+    font-size: clamp(2.1rem, 4.5vw, 3.6rem);
     font-weight: 800;
-    line-height: 1.18;
-    letter-spacing: -0.025em;
+    line-height: 1.12;
+    letter-spacing: -0.038em;
     color: var(--h2-text);
     text-wrap: balance;
     max-width: 100%;
@@ -157,31 +152,30 @@ const installPrompt = isEn
   }
 
   .hero-accent {
-    background: linear-gradient(135deg, var(--h2-accent) 0%, #38bdf8 55%, #818cf8 100%);
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent;
+    color: var(--h2-text-muted);
+    font-weight: 700;
   }
 
   .hero-subtitle {
-    max-width: 680px;
-    margin: 0 auto 1.75rem;
-    font-size: clamp(0.96rem, 1.35vw, 1.08rem);
+    max-width: 650px;
+    margin: 0 auto 1.9rem;
+    font-size: clamp(0.98rem, 1.3vw, 1.08rem);
     color: var(--h2-text-muted);
-    line-height: 1.75;
+    line-height: 1.78;
+    text-wrap: pretty;
   }
 
   .hero-install-box {
     width: 100%;
-    max-width: 780px;
-    margin: 1.65rem auto 1.1rem;
+    max-width: 760px;
+    margin: 2rem auto 0;
     border-radius: 14px;
     background: var(--h2-code-bg);
     color: var(--h2-code-fg);
-    border: 1px solid var(--h2-border-strong);
+    border: 1px solid rgba(255, 255, 255, 0.11);
     text-align: left;
     overflow: hidden;
-    box-shadow: 0 14px 36px -14px rgba(15, 23, 42, 0.35);
+    box-shadow: var(--h2-shadow-md);
   }
 
   .hero-install-top {
@@ -190,11 +184,11 @@ const installPrompt = isEn
     align-items: center;
     justify-content: space-between;
     gap: 0.6rem;
-    padding: 0.6rem 0.9rem;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-    background: rgba(255, 255, 255, 0.04);
-    font-size: 0.78rem;
-    color: #94a3b8;
+    padding: 0.62rem 0.95rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    background: rgba(255, 255, 255, 0.03);
+    font-size: 0.76rem;
+    color: #a1a1aa;
   }
 
   .hero-install-label {
@@ -207,47 +201,48 @@ const installPrompt = isEn
   .hero-skill-badge {
     display: inline-flex;
     align-items: center;
-    padding: 0.14rem 0.55rem;
+    padding: 0.14rem 0.52rem;
     border-radius: 6px;
-    background: rgba(97, 175, 239, 0.18);
-    border: 1px solid rgba(97, 175, 239, 0.35);
-    color: #93c5fd;
+    background: rgba(56, 189, 248, 0.14);
+    border: 1px solid rgba(56, 189, 248, 0.28);
+    color: #7dd3fc;
     font-family: var(--sl-font-mono);
-    font-size: 0.74rem;
+    font-size: 0.72rem;
     font-weight: 600;
   }
 
   .hero-install-actions {
     display: inline-flex;
     align-items: center;
-    gap: 0.5rem;
+    gap: 0.45rem;
     margin-left: auto;
   }
 
   .hero-skill-link {
-    color: #93c5fd;
+    color: #a1a1aa;
     text-decoration: none;
-    font-size: 0.76rem;
+    font-size: 0.74rem;
     padding: 0.25rem 0.5rem;
     border-radius: 6px;
+    transition: color 140ms ease;
   }
 
   .hero-skill-link:hover {
-    text-decoration: underline;
+    color: #fafafa;
   }
 
   .hero-install-cmd {
-    padding: 0.85rem 1rem;
+    padding: 0.9rem 1.05rem;
     font-family: var(--sl-font-mono);
-    font-size: 0.82rem;
-    line-height: 1.65;
+    font-size: 0.81rem;
+    line-height: 1.68;
     overflow-wrap: anywhere;
   }
 
   .hero-install-cmd code {
     background: transparent;
     padding: 0;
-    color: #e2e8f0;
+    color: #e4e4e7;
     font-size: inherit;
     white-space: pre-wrap;
     word-break: break-word;
@@ -257,39 +252,40 @@ const installPrompt = isEn
     flex-shrink: 0;
     padding: 0.28rem 0.72rem;
     border-radius: 7px;
-    border: 1px solid rgba(255, 255, 255, 0.18);
-    background: rgba(255, 255, 255, 0.09);
-    color: #f8fafc;
-    font-size: 0.76rem;
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    background: rgba(255, 255, 255, 0.08);
+    color: #fafafa;
+    font-size: 0.74rem;
+    font-weight: 500;
     font-family: var(--sl-font);
     cursor: pointer;
-    transition: background 150ms ease;
+    transition: background 150ms ease, border-color 150ms ease;
   }
 
   .hero-copy-btn:hover {
-    background: rgba(255, 255, 255, 0.2);
-  }
-
-  .hero-pills {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 0.5rem;
-  }
-
-  .hero-pills span {
-    font-size: 0.78rem;
-    color: var(--h2-text-subtle);
-    padding: 0.22rem 0.68rem;
-    border-radius: 999px;
-    background: var(--h2-surface-subtle);
-    border: 1px solid var(--h2-border);
+    background: rgba(255, 255, 255, 0.16);
+    border-color: rgba(255, 255, 255, 0.24);
   }
 
   .hero-stage {
-    margin-top: 2.5rem;
+    margin-top: 3rem;
     max-width: 1060px;
     margin-inline: auto;
+  }
+
+  .hero-bezel {
+    padding: 7px;
+    border-radius: 20px;
+    background: linear-gradient(
+      180deg,
+      color-mix(in srgb, var(--h2-border-strong) 80%, transparent) 0%,
+      color-mix(in srgb, var(--h2-border) 45%, transparent) 100%
+    );
+    box-shadow: var(--h2-shadow-lg);
+  }
+
+  .hero-bezel .h2-window {
+    box-shadow: none;
   }
 
   .hero-screenshot {

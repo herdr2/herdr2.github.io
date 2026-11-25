@@ -36,7 +36,7 @@ const pillars = [
 <section class="h2-section" id="architecture">
   <div class="h2-container">
     <div class="h2-section-header h2-section-header--center">
-      <span class="h2-eyebrow">工程架构</span>
+      <span class="h2-section-kicker">Architecture</span>
       <h2 class="h2-section-title">桌面窗口与核心运行时彻底解耦</h2>
       <p class="h2-section-desc">
         客户端只是轻量 GPU 渲染与交互壳层，真正的终端持有者、ACP 会话状态机、快照与 Drove 编排引擎全部由
@@ -108,7 +108,7 @@ const pillars = [
 
   .arch-diagram-body {
     padding: 1.5rem;
-    background: #ffffff;
+    background: var(--h2-diagram-bg);
     display: flex;
     justify-content: center;
   }

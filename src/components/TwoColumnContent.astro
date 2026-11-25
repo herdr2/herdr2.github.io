@@ -1,0 +1,65 @@
+---
+const { toc } = Astro.locals.starlightRoute;
+---
+
+{!toc && <slot />}
+
+{
+  toc && (
+    <main class="container-main">
+      <div class="main">
+        <slot />
+      </div>
+
+      <div class="toc">
+        <slot name="right-sidebar" />
+      </div>
+    </main>
+  )
+}
+
+<style>
+  .container-main {
+    padding-top: 1.75rem;
+    padding-bottom: 3rem;
+    position: relative;
+  }
+
+  @media (min-width: 1024px) {
+    .container-main {
+      padding-top: 2.25rem;
+      padding-bottom: 4rem;
+      gap: 2.75rem;
+    }
+  }
+
+  @media (min-width: 1280px) {
+    .container-main {
+      grid-template-columns: minmax(0, 1fr) 236px;
+      display: grid;
+      align-items: start;
+    }
+  }
+
+  .main {
+    max-width: 50rem;
+    min-width: 0;
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .toc {
+    display: none;
+    position: sticky;
+    top: 5rem;
+    max-height: calc(100vh - 6.5rem);
+    overflow-y: auto;
+  }
+
+  @media (min-width: 1280px) {
+    .toc {
+      display: block;
+    }
+  }
+</style>

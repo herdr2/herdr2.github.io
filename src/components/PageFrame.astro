@@ -85,7 +85,38 @@ const homeLabel = locale === 'en' ? 'Home' : '首页';
       </div>
     </div>
   </div>
+
+  <div class="h2-lightbox" id="h2-global-lightbox" role="dialog" aria-modal="true" aria-label="Image preview">
+    <img id="h2-global-lightbox-img" src="" alt="" />
+  </div>
 </div>
+
+<script>
+  (() => {
+    const lightbox = document.getElementById('h2-global-lightbox');
+    const lightboxImg = document.getElementById('h2-global-lightbox-img') as HTMLImageElement | null;
+    if (!lightbox || !lightboxImg) return;
+
+    document.querySelectorAll('img.h2-zoomable, .sl-markdown-content img').forEach((node) => {
+      const img = node as HTMLImageElement;
+      if (img.dataset.h2ZoomBound) return;
+      img.dataset.h2ZoomBound = '1';
+      img.addEventListener('click', () => {
+        lightboxImg.src = img.currentSrc || img.src;
+        lightboxImg.alt = img.alt || '';
+        lightbox.classList.add('is-open');
+      });
+    });
+
+    lightbox.addEventListener('click', () => {
+      lightbox.classList.remove('is-open');
+    });
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') lightbox.classList.remove('is-open');
+    });
+  })();
+</script>
 
 <style>
   .layout {

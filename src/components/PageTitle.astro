@@ -1,0 +1,104 @@
+---
+import { resolveLocale } from '../lib/i18nNav';
+
+const {
+  entry: {
+    data: { title, template, description },
+  },
+  locale: routeLocale,
+  id,
+} = Astro.locals.starlightRoute;
+
+const locale = resolveLocale(routeLocale, Astro.url.pathname);
+
+function getSectionLabel(docId: string, lang: 'zh-CN' | 'en'): string {
+  const clean = docId.replace(/^en\//, '');
+  if (clean.startsWith('guide')) return lang === 'en' ? 'User Guide' : '用户使用手册';
+  if (clean.startsWith('architecture')) return lang === 'en' ? 'Architecture' : '架构与实现原理';
+  if (clean.startsWith('reference')) return lang === 'en' ? 'CLI & Reference' : 'CLI 与运维参考';
+  return lang === 'en' ? 'Docs' : '文档';
+}
+
+const sectionLabel = getSectionLabel(id || '', locale);
+const docsHome = locale === 'en' ? '/en/guide/' : '/guide/';
+const docsRootLabel = locale === 'en' ? 'Docs' : '文档中心';
+---
+
+{
+  template === 'doc' && (
+    <header class="doc-header">
+      <nav class="doc-breadcrumb" aria-label="Breadcrumb">
+        <a href={docsHome}>{docsRootLabel}</a>
+        <span class="doc-sep" aria-hidden="true">/</span>
+        <span class="doc-section">{sectionLabel}</span>
+      </nav>
+      <h1 id="_top" class="doc-title">{title}</h1>
+      {description && <p class="doc-desc">{description}</p>}
+    </header>
+  )
+}
+
+{
+  template !== 'doc' && (
+    <>
+      <h1 id="_top">{title}</h1>
+      {description && <p>{description}</p>}
+    </>
+  )
+}
+
+<style>
+  .doc-header {
+    padding-bottom: 1.6rem;
+    margin-bottom: 2rem;
+    border-bottom: 1px solid var(--h2-border);
+  }
+
+  .doc-breadcrumb {
+    display: flex;
+    align-items: center;
+    gap: 0.45rem;
+    font-size: 0.8rem;
+    font-weight: 500;
+    color: var(--h2-text-subtle);
+    margin-bottom: 0.85rem;
+  }
+
+  .doc-breadcrumb a {
+    color: var(--h2-text-subtle);
+    text-decoration: none;
+    transition: color 140ms ease;
+  }
+
+  .doc-breadcrumb a:hover {
+    color: var(--h2-text);
+  }
+
+  .doc-sep {
+    opacity: 0.45;
+  }
+
+  .doc-section {
+    color: var(--h2-accent);
+    font-weight: 600;
+  }
+
+  .doc-title {
+    margin: 0;
+    font-size: clamp(1.75rem, 2.8vw, 2.2rem);
+    font-weight: 750;
+    letter-spacing: -0.03em;
+    line-height: 1.24;
+    color: var(--h2-text);
+    scroll-margin-top: 5rem;
+  }
+
+  .doc-desc {
+    margin: 0.75rem 0 0;
+    font-size: 1rem;
+    line-height: 1.7;
+    color: var(--h2-text-muted);
+    max-width: 66ch;
+    text-wrap: pretty;
+  }
+</style>
