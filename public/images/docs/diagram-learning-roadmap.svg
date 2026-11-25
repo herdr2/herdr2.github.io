@@ -1,0 +1,111 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1120 260" width="1120" height="260">
+  <defs>
+    <style>
+      .font { font-family: "Noto Sans CJK SC", "PingFang SC", "Microsoft YaHei", "Inter", system-ui, -apple-system, sans-serif; }
+      .title { font-size: 16px; font-weight: 700; fill: #0F172A; }
+      .subtitle { font-size: 12px; font-weight: 400; fill: #64748B; }
+      .step-num { font-size: 11px; font-weight: 700; letter-spacing: 0.5px; }
+      .card-title { font-size: 14px; font-weight: 700; fill: #0F172A; }
+      .card-desc { font-size: 11.5px; font-weight: 400; fill: #475569; }
+      .stage-lbl { font-size: 11px; font-weight: 600; fill: #64748B; }
+    </style>
+    <filter id="shadow" x="-6%" y="-10%" width="112%" height="128%">
+      <feDropShadow dx="0" dy="3" stdDeviation="4" flood-color="#0F172A" flood-opacity="0.06"/>
+    </filter>
+    <marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto-start-reverse">
+      <path d="M 1 1.5 L 8.5 5 L 1 8.5 z" fill="#94A3B8"/>
+    </marker>
+  </defs>
+
+  <!-- Canvas background -->
+  <rect x="0" y="0" width="1120" height="260" rx="14" fill="#F8FAFC" stroke="#E2E8F0" stroke-width="1"/>
+
+  <!-- Header -->
+  <text x="32" y="38" class="font title">Herdr2 推荐学习与上手路线</text>
+  <text x="32" y="57" class="font subtitle">从日常真终端工作台起步，逐步解锁无头 ACP 智能体、上下文接力与多 Agent DAG 编排</text>
+
+  <!-- Stage phase brackets -->
+  <rect x="32" y="76" width="334" height="22" rx="11" fill="#EFF6FF"/>
+  <text x="199" y="91" text-anchor="middle" class="font stage-lbl" fill="#2563EB">基础工作台</text>
+
+  <rect x="394" y="76" width="334" height="22" rx="11" fill="#F5F3FF"/>
+  <text x="561" y="91" text-anchor="middle" class="font stage-lbl" fill="#7C3AED">单智能体提效</text>
+
+  <rect x="756" y="76" width="332" height="22" rx="11" fill="#ECFDF5"/>
+  <text x="922" y="91" text-anchor="middle" class="font stage-lbl" fill="#059669">多机协同与编排</text>
+
+  <!-- Step 01 -->
+  <g filter="url(#shadow)">
+    <rect x="32" y="114" width="152" height="114" rx="11" fill="#FFFFFF" stroke="#BFDBFE" stroke-width="1.4"/>
+  </g>
+  <rect x="46" y="128" width="46" height="20" rx="6" fill="#DBEAFE"/>
+  <text x="69" y="142" text-anchor="middle" class="font step-num" fill="#1D4ED8">01</text>
+  <text x="46" y="172" class="font card-title">快速上手</text>
+  <text x="46" y="193" class="font card-desc">认识双平面架构</text>
+  <text x="46" y="210" class="font card-desc">主界面与命令面板</text>
+
+  <!-- Arrow 1->2 -->
+  <line x1="186" y1="171" x2="210" y2="171" stroke="#94A3B8" stroke-width="1.8" marker-end="url(#arrow)"/>
+
+  <!-- Step 02 -->
+  <g filter="url(#shadow)">
+    <rect x="214" y="114" width="152" height="114" rx="11" fill="#FFFFFF" stroke="#BFDBFE" stroke-width="1.4"/>
+  </g>
+  <rect x="228" y="128" width="46" height="20" rx="6" fill="#DBEAFE"/>
+  <text x="251" y="142" text-anchor="middle" class="font step-num" fill="#1D4ED8">02</text>
+  <text x="228" y="172" class="font card-title">工作区与终端</text>
+  <text x="228" y="193" class="font card-desc">分栏与真终端托管</text>
+  <text x="228" y="210" class="font card-desc">文件 / 变更面板</text>
+
+  <!-- Arrow 2->3 -->
+  <line x1="368" y1="171" x2="392" y2="171" stroke="#94A3B8" stroke-width="1.8" marker-end="url(#arrow)"/>
+
+  <!-- Step 03 -->
+  <g filter="url(#shadow)">
+    <rect x="396" y="114" width="152" height="114" rx="11" fill="#FFFFFF" stroke="#DDD6FE" stroke-width="1.4"/>
+  </g>
+  <rect x="410" y="128" width="46" height="20" rx="6" fill="#EDE9FE"/>
+  <text x="433" y="142" text-anchor="middle" class="font step-num" fill="#6D28D9">03</text>
+  <text x="410" y="172" class="font card-title">ACP 智能体</text>
+  <text x="410" y="193" class="font card-desc">结构化对话与插话</text>
+  <text x="410" y="210" class="font card-desc">权限审批 / MCP</text>
+
+  <!-- Arrow 3->4 -->
+  <line x1="550" y1="171" x2="574" y2="171" stroke="#94A3B8" stroke-width="1.8" marker-end="url(#arrow)"/>
+
+  <!-- Step 04 -->
+  <g filter="url(#shadow)">
+    <rect x="578" y="114" width="152" height="114" rx="11" fill="#FFFFFF" stroke="#DDD6FE" stroke-width="1.4"/>
+  </g>
+  <rect x="592" y="128" width="46" height="20" rx="6" fill="#EDE9FE"/>
+  <text x="615" y="142" text-anchor="middle" class="font step-num" fill="#6D28D9">04</text>
+  <text x="592" y="172" class="font card-title">接力 / 快照 / AI</text>
+  <text x="592" y="193" class="font card-desc">跨模型接力与分叉</text>
+  <text x="592" y="210" class="font card-desc">Git 快照回滚</text>
+
+  <!-- Arrow 4->5 -->
+  <line x1="732" y1="171" x2="756" y2="171" stroke="#94A3B8" stroke-width="1.8" marker-end="url(#arrow)"/>
+
+  <!-- Step 05 -->
+  <g filter="url(#shadow)">
+    <rect x="760" y="114" width="152" height="114" rx="11" fill="#FFFFFF" stroke="#A7F3D0" stroke-width="1.4"/>
+  </g>
+  <rect x="774" y="128" width="46" height="20" rx="6" fill="#D1FAE5"/>
+  <text x="797" y="142" text-anchor="middle" class="font step-num" fill="#047857">05</text>
+  <text x="774" y="172" class="font card-title">Drove 编排</text>
+  <text x="774" y="193" class="font card-desc">多角色并行 DAG</text>
+  <text x="774" y="210" class="font card-desc">自动验收与审查</text>
+
+  <!-- Arrow 5->6 -->
+  <line x1="914" y1="171" x2="938" y2="171" stroke="#94A3B8" stroke-width="1.8" marker-end="url(#arrow)"/>
+
+  <!-- Step 06 -->
+  <g filter="url(#shadow)">
+    <rect x="942" y="114" width="146" height="114" rx="11" fill="#FFFFFF" stroke="#A7F3D0" stroke-width="1.4"/>
+  </g>
+  <rect x="956" y="128" width="46" height="20" rx="6" fill="#D1FAE5"/>
+  <text x="979" y="142" text-anchor="middle" class="font step-num" fill="#047857">06</text>
+  <text x="956" y="172" class="font card-title">远程与定制</text>
+  <text x="956" y="193" class="font card-desc">SSH 多机合一</text>
+  <text x="956" y="210" class="font card-desc">Mods 热改与 QA</text>
+</svg>

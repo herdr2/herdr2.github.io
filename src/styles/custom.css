@@ -1,0 +1,398 @@
+/* ============================================================
+   Herdr2 Official Website — Custom Styles on Starlight Theme Black
+   Harmonizes starlight-theme-black's Shadcn aesthetic with
+   Herdr2's sky-blue (#0284c7 / #61afef) & One Dark Pro accents.
+   ============================================================ */
+
+:root {
+  --sl-font: 'Geist', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', 'Noto Sans CJK SC',
+    system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+  --sl-font-mono: 'Geist Mono', 'JetBrains Mono', ui-monospace, 'SFMono-Regular', Menlo, Consolas,
+    monospace;
+
+  --h2-accent: #0284c7;
+  --h2-accent-strong: #0369a1;
+  --h2-accent-soft: rgba(2, 132, 199, 0.1);
+  --h2-accent-border: rgba(2, 132, 199, 0.28);
+  --h2-surface: #ffffff;
+  --h2-surface-subtle: #f7f9fc;
+  --h2-border: rgba(15, 23, 42, 0.11);
+  --h2-border-strong: rgba(15, 23, 42, 0.18);
+  --h2-text: #0f172a;
+  --h2-text-muted: #475569;
+  --h2-text-subtle: #64748b;
+  --h2-shadow-lg: 0 24px 64px -16px rgba(15, 23, 42, 0.14), 0 4px 16px rgba(15, 23, 42, 0.06);
+  --h2-glow: radial-gradient(60% 50% at 50% 0%, rgba(2, 132, 199, 0.14) 0%, rgba(2, 132, 199, 0) 100%);
+  --h2-code-bg: #0f172a;
+  --h2-code-fg: #e2e8f0;
+}
+
+:root[data-theme='dark'] {
+  --h2-accent: #61afef;
+  --h2-accent-strong: #82c4f8;
+  --h2-accent-soft: rgba(97, 175, 239, 0.12);
+  --h2-accent-border: rgba(97, 175, 239, 0.3);
+  --h2-surface: #111318;
+  --h2-surface-subtle: #171a21;
+  --h2-border: rgba(255, 255, 255, 0.1);
+  --h2-border-strong: rgba(255, 255, 255, 0.18);
+  --h2-text: #f4f6fa;
+  --h2-text-muted: #a8b0be;
+  --h2-text-subtle: #7c8596;
+  --h2-shadow-lg: 0 30px 80px -20px rgba(0, 0, 0, 0.65), 0 0 0 1px rgba(255, 255, 255, 0.06);
+  --h2-glow: radial-gradient(60% 50% at 50% 0%, rgba(97, 175, 239, 0.16) 0%, rgba(97, 175, 239, 0) 100%);
+  --h2-code-bg: #0c0e13;
+  --h2-code-fg: #dcdfe4;
+}
+
+/* Refine site logo sizing in navbar */
+.site-title img {
+  border-radius: 6px;
+}
+
+/* Polish images & SVG diagrams inside documentation pages */
+.sl-markdown-content img {
+  border-radius: 12px;
+  border: 1px solid var(--h2-border);
+  box-shadow: 0 10px 30px -12px rgba(0, 0, 0, 0.2);
+  background: #ffffff;
+}
+
+.sl-markdown-content table {
+  font-size: 0.92rem;
+}
+
+/* Hide starlight-theme-black default splash PageTitle (h1#_top + description p) on custom landing pages */
+main:has(.h2-landing) > h1#_top,
+main:has(.h2-landing) > h1#_top + p,
+main:has(.h2-landing) > .content-panel:first-child {
+  display: none !important;
+}
+
+main:has(.h2-landing) {
+  width: 100%;
+  max-width: 100%;
+  overflow-x: clip;
+}
+
+/* Fix starlight-theme-black fixed 2rem height on sidebar links when Chinese labels wrap onto 2 lines */
+.aside .entry-link {
+  height: auto !important;
+  min-height: 2rem;
+  padding-top: 0.36rem;
+  padding-bottom: 0.36rem;
+  line-height: 1.38;
+}
+
+/* Prevent horizontal overflow across viewport sizes */
+html,
+body,
+.layout,
+.layout__grid {
+  max-width: 100%;
+  overflow-x: clip;
+}
+
+/* ============================================================
+   Landing Page Layout & Shared Primitives
+   ============================================================ */
+.h2-landing {
+  width: 100%;
+  max-width: 100%;
+  color: var(--h2-text);
+  font-family: var(--sl-font);
+  line-height: 1.6;
+  overflow-x: clip;
+}
+
+.h2-container {
+  width: 100%;
+  max-width: 1160px;
+  margin-inline: auto;
+  padding-inline: clamp(1rem, 3vw, 2rem);
+  box-sizing: border-box;
+}
+
+.h2-section {
+  padding-block: 4.5rem;
+  border-top: 1px solid var(--h2-border);
+}
+
+.h2-section--hero {
+  border-top: none;
+  padding-top: 3.5rem;
+  padding-bottom: 4.5rem;
+  background-image: var(--h2-glow);
+}
+
+.h2-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.3rem 0.8rem;
+  border-radius: 999px;
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: var(--h2-accent);
+  background: var(--h2-accent-soft);
+  border: 1px solid var(--h2-accent-border);
+  text-decoration: none;
+  transition: transform 150ms ease, border-color 150ms ease;
+}
+
+.h2-eyebrow:hover {
+  transform: translateY(-1px);
+}
+
+.h2-eyebrow-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 999px;
+  background: var(--h2-accent);
+  box-shadow: 0 0 0 3px var(--h2-accent-soft);
+}
+
+.h2-section-header {
+  max-width: 740px;
+  margin-bottom: 2.5rem;
+}
+
+.h2-section-header--center {
+  margin-inline: auto;
+  text-align: center;
+}
+
+.h2-section-title {
+  margin: 0.85rem 0 0.75rem;
+  font-size: clamp(1.75rem, 3.2vw, 2.5rem);
+  font-weight: 700;
+  letter-spacing: -0.025em;
+  line-height: 1.2;
+  color: var(--h2-text);
+}
+
+.h2-section-desc {
+  margin: 0;
+  font-size: 1.03rem;
+  color: var(--h2-text-muted);
+  line-height: 1.7;
+}
+
+/* Buttons */
+.h2-btn-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 0.85rem;
+}
+
+.h2-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.45rem;
+  padding: 0.72rem 1.35rem;
+  border-radius: 10px;
+  font-size: 0.94rem;
+  font-weight: 600;
+  text-decoration: none;
+  border: 1px solid transparent;
+  cursor: pointer;
+  transition: all 150ms ease;
+}
+
+.h2-btn--primary {
+  background: var(--h2-accent);
+  color: #ffffff;
+  box-shadow: 0 6px 20px -6px rgba(2, 132, 199, 0.55);
+}
+
+:root[data-theme='dark'] .h2-btn--primary {
+  color: #0b111a;
+  box-shadow: 0 6px 24px -6px rgba(97, 175, 239, 0.45);
+}
+
+.h2-btn--primary:hover {
+  background: var(--h2-accent-strong);
+  transform: translateY(-1px);
+}
+
+.h2-btn--secondary {
+  background: var(--h2-surface);
+  color: var(--h2-text);
+  border-color: var(--h2-border-strong);
+}
+
+.h2-btn--secondary:hover {
+  border-color: var(--h2-accent);
+  color: var(--h2-accent);
+  transform: translateY(-1px);
+}
+
+.h2-btn--ghost {
+  background: transparent;
+  color: var(--h2-text-muted);
+  border-color: var(--h2-border);
+}
+
+.h2-btn--ghost:hover {
+  color: var(--h2-text);
+  border-color: var(--h2-border-strong);
+}
+
+/* Cards */
+.h2-card {
+  background: var(--h2-surface);
+  border: 1px solid var(--h2-border);
+  border-radius: 14px;
+  padding: 1.4rem;
+  transition: border-color 160ms ease, transform 160ms ease;
+}
+
+.h2-card:hover {
+  border-color: var(--h2-border-strong);
+}
+
+.h2-grid-3 {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1.15rem;
+}
+
+.h2-grid-2 {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1.25rem;
+}
+
+/* Window frame for screenshots */
+.h2-window {
+  border-radius: 14px;
+  overflow: hidden;
+  border: 1px solid var(--h2-border-strong);
+  background: var(--h2-surface);
+  box-shadow: var(--h2-shadow-lg);
+}
+
+.h2-window-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.65rem 1rem;
+  background: var(--h2-surface-subtle);
+  border-bottom: 1px solid var(--h2-border);
+  font-size: 0.78rem;
+  color: var(--h2-text-subtle);
+  font-family: var(--sl-font-mono);
+}
+
+.h2-window-dots {
+  display: inline-flex;
+  gap: 6px;
+}
+
+.h2-window-dots span {
+  width: 10px;
+  height: 10px;
+  border-radius: 999px;
+  background: var(--h2-border-strong);
+}
+
+.h2-window-dots span:nth-child(1) {
+  background: #f87171;
+  opacity: 0.8;
+}
+.h2-window-dots span:nth-child(2) {
+  background: #fbbf24;
+  opacity: 0.8;
+}
+.h2-window-dots span:nth-child(3) {
+  background: #34d399;
+  opacity: 0.8;
+}
+
+.h2-window img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+/* Lightbox modal for full-res screenshot inspection */
+.h2-lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+  background: rgba(5, 8, 15, 0.86);
+  backdrop-filter: blur(6px);
+  cursor: zoom-out;
+}
+
+.h2-lightbox.is-open {
+  display: flex;
+}
+
+.h2-lightbox img {
+  max-width: min(1320px, 94vw);
+  max-height: 90vh;
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  box-shadow: 0 28px 80px rgba(0, 0, 0, 0.7);
+  background: #ffffff;
+}
+
+/* English landing cards */
+.en-doc-card {
+  display: flex;
+  flex-direction: column;
+  text-decoration: none;
+  color: inherit;
+}
+
+.en-doc-card:hover {
+  border-color: var(--h2-accent-border);
+  transform: translateY(-2px);
+}
+
+.en-doc-card h3 {
+  margin: 0 0 0.55rem;
+  font-size: 1.06rem;
+  color: var(--h2-text);
+}
+
+.en-doc-card p {
+  margin: 0 0 1rem;
+  font-size: 0.9rem;
+  color: var(--h2-text-muted);
+  flex: 1;
+}
+
+.en-doc-card span {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--h2-accent);
+}
+
+.en-cta-row {
+  margin-top: 2.2rem;
+}
+
+@media (max-width: 960px) {
+  .h2-grid-3 {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 680px) {
+  .h2-section {
+    padding-block: 3.2rem;
+  }
+  .h2-grid-3,
+  .h2-grid-2 {
+    grid-template-columns: 1fr;
+  }
+}

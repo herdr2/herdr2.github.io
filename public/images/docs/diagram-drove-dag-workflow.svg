@@ -1,0 +1,147 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1120 390" width="1120" height="390">
+  <defs>
+    <style>
+      .font { font-family: "Noto Sans CJK SC", "PingFang SC", "Microsoft YaHei", "Inter", system-ui, -apple-system, sans-serif; }
+      .title { font-size: 16.5px; font-weight: 700; fill: #0F172A; }
+      .subtitle { font-size: 12px; fill: #64748B; }
+      .card-title { font-size: 13.5px; font-weight: 700; fill: #0F172A; }
+      .card-desc { font-size: 11.5px; fill: #475569; }
+      .badge { font-size: 10.5px; font-weight: 700; }
+      .edge-lbl { font-size: 11px; font-weight: 600; }
+    </style>
+    <filter id="shadow" x="-6%" y="-10%" width="112%" height="128%">
+      <feDropShadow dx="0" dy="3" stdDeviation="4" flood-color="#0F172A" flood-opacity="0.06"/>
+    </filter>
+    <marker id="arr-slate" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto-start-reverse">
+      <path d="M 1 1.5 L 8.5 5 L 1 8.5 z" fill="#64748B"/>
+    </marker>
+    <marker id="arr-green" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto-start-reverse">
+      <path d="M 1 1.5 L 8.5 5 L 1 8.5 z" fill="#059669"/>
+    </marker>
+    <marker id="arr-red" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto-start-reverse">
+      <path d="M 1 1.5 L 8.5 5 L 1 8.5 z" fill="#DC2626"/>
+    </marker>
+    <marker id="arr-blue" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto-start-reverse">
+      <path d="M 1 1.5 L 8.5 5 L 1 8.5 z" fill="#2563EB"/>
+    </marker>
+  </defs>
+
+  <!-- Canvas background -->
+  <rect x="0" y="0" width="1120" height="390" rx="14" fill="#F8FAFC" stroke="#E2E8F0" stroke-width="1"/>
+
+  <!-- Header -->
+  <text x="32" y="36" class="font title">Drove 多智能体 DAG 编排与门禁闭环</text>
+  <text x="32" y="55" class="font subtitle">按角色隔离权限与独立 Git Worktree，串联自动验收门禁与异构模型审查，未通过自动触发返工回路</text>
+
+  <!-- Node 1: Coordinator -->
+  <g filter="url(#shadow)">
+    <rect x="32" y="138" width="176" height="106" rx="11" fill="#FFFFFF" stroke="#93C5FD" stroke-width="1.6"/>
+  </g>
+  <rect x="46" y="152" width="62" height="20" rx="6" fill="#DBEAFE"/>
+  <text x="77" y="166" text-anchor="middle" class="font badge" fill="#1D4ED8">编排核心</text>
+  <text x="46" y="192" class="font card-title">架构师 · 编排者</text>
+  <text x="46" y="212" class="font card-desc">拆解任务 DAG 与依赖</text>
+  <text x="46" y="229" class="font card-desc">按角色分配候选 Agent</text>
+
+  <!-- Arrows: Coordinator -> Coder & Researcher -->
+  <path d="M 208 175 C 236 175, 232 135, 260 135" fill="none" stroke="#2563EB" stroke-width="1.8" marker-end="url(#arr-blue)"/>
+  <path d="M 208 208 C 236 208, 232 276, 260 276" fill="none" stroke="#2563EB" stroke-width="1.8" marker-end="url(#arr-blue)"/>
+
+  <!-- Node 2A: Coder (Writable) -->
+  <g filter="url(#shadow)">
+    <rect x="264" y="84" width="204" height="106" rx="11" fill="#FFFFFF" stroke="#6EE7B7" stroke-width="1.6"/>
+  </g>
+  <rect x="278" y="98" width="52" height="20" rx="6" fill="#D1FAE5"/>
+  <text x="304" y="112" text-anchor="middle" class="font badge" fill="#047857">可写</text>
+  <text x="338" y="112" class="font badge" fill="#64748B">coder</text>
+  <text x="278" y="138" class="font card-title">程序员 Worker</text>
+  <text x="278" y="158" class="font card-desc">独立 Git Worktree 施工</text>
+  <text x="278" y="175" class="font card-desc">实现功能 / 故障自动顺延</text>
+
+  <!-- Node 2B: Researcher (Readonly) -->
+  <g filter="url(#shadow)">
+    <rect x="264" y="224" width="204" height="102" rx="11" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1.5"/>
+  </g>
+  <rect x="278" y="238" width="52" height="20" rx="6" fill="#F1F5F9"/>
+  <text x="304" y="252" text-anchor="middle" class="font badge" fill="#475569">只读</text>
+  <text x="338" y="252" class="font badge" fill="#64748B">researcher</text>
+  <text x="278" y="278" class="font card-title">调研员 Worker</text>
+  <text x="278" y="298" class="font card-desc">跨仓源码摸底与依赖分析</text>
+  <text x="278" y="314" class="font card-desc">为编码提供上下文输入</text>
+
+  <!-- Arrow: Researcher -> Coder (Context dependency) -->
+  <line x1="366" y1="224" x2="366" y2="194" stroke="#64748B" stroke-width="1.6" stroke-dasharray="4 3" marker-end="url(#arr-slate)"/>
+  <rect x="374" y="198" width="82" height="19" rx="5" fill="#F1F5F9"/>
+  <text x="415" y="211" text-anchor="middle" class="font edge-lbl" fill="#475569">调研结论输入</text>
+
+  <!-- Arrow: Coder -> Verify Gate -->
+  <line x1="468" y1="137" x2="520" y2="137" stroke="#64748B" stroke-width="1.8" marker-end="url(#arr-slate)"/>
+
+  <!-- Node 3: Verify Gate -->
+  <g filter="url(#shadow)">
+    <rect x="524" y="84" width="166" height="106" rx="11" fill="#FFFBEB" stroke="#FCD34D" stroke-width="1.6"/>
+  </g>
+  <rect x="538" y="98" width="66" height="20" rx="6" fill="#FEF3C7"/>
+  <text x="571" y="112" text-anchor="middle" class="font badge" fill="#B45309">自动门禁</text>
+  <text x="538" y="138" class="font card-title">Verify 验收</text>
+  <text x="538" y="158" class="font card-desc">自动运行编译、单测、</text>
+  <text x="538" y="175" class="font card-desc">Lint 与类型检查脚本</text>
+
+  <!-- Arrow: Verify -> Reviewer (Pass) -->
+  <line x1="690" y1="137" x2="744" y2="137" stroke="#059669" stroke-width="2" marker-end="url(#arr-green)"/>
+  <rect x="698" y="114" width="38" height="18" rx="5" fill="#ECFDF5"/>
+  <text x="717" y="127" text-anchor="middle" class="font edge-lbl" fill="#047857">通过</text>
+
+  <!-- Node 4: Adversarial Reviewer -->
+  <g filter="url(#shadow)">
+    <rect x="748" y="84" width="174" height="106" rx="11" fill="#FFFFFF" stroke="#C4B5FD" stroke-width="1.6"/>
+  </g>
+  <rect x="762" y="98" width="64" height="20" rx="6" fill="#EDE9FE"/>
+  <text x="794" y="112" text-anchor="middle" class="font badge" fill="#6D28D9">只读审查</text>
+  <text x="832" y="112" class="font badge" fill="#64748B">reviewer</text>
+  <text x="762" y="138" class="font card-title">独立审查员</text>
+  <text x="762" y="158" class="font card-desc">异构模型交叉审计</text>
+  <text x="762" y="175" class="font card-desc">检查安全、并发与架构</text>
+
+  <!-- Arrow: Reviewer -> Merge (Approved) -->
+  <line x1="922" y1="137" x2="964" y2="137" stroke="#059669" stroke-width="2" marker-end="url(#arr-green)"/>
+  <rect x="926" y="114" width="36" height="18" rx="5" fill="#ECFDF5"/>
+  <text x="944" y="127" text-anchor="middle" class="font edge-lbl" fill="#047857">批准</text>
+
+  <!-- Node 5: Merge & Deliver -->
+  <g filter="url(#shadow)">
+    <rect x="968" y="84" width="124" height="106" rx="11" fill="#ECFDF5" stroke="#34D399" stroke-width="1.8"/>
+  </g>
+  <rect x="980" y="98" width="52" height="20" rx="6" fill="#A7F3D0"/>
+  <text x="1006" y="112" text-anchor="middle" class="font badge" fill="#065F46">已交付</text>
+  <text x="980" y="138" class="font card-title">合并主分支</text>
+  <text x="980" y="158" class="font card-desc">Worktree 自动</text>
+  <text x="980" y="175" class="font card-desc">安全合回交付</text>
+
+  <!-- Failure Rework Loops (Verify fail & Review reject -> back to Coder) -->
+  <!-- Verify fail loop -->
+  <path d="M 607 190 L 607 248 L 490 248 L 490 162 L 472 162" fill="none" stroke="#DC2626" stroke-width="1.6" stroke-dasharray="5 3" marker-end="url(#arr-red)"/>
+  <rect x="510" y="238" width="90" height="20" rx="6" fill="#FEF2F2" stroke="#FECACA" stroke-width="1"/>
+  <text x="555" y="252" text-anchor="middle" class="font edge-lbl" fill="#B91C1C">校验失败返工</text>
+
+  <!-- Reviewer reject loop -->
+  <path d="M 835 190 L 835 294 L 490 294 L 490 162" fill="none" stroke="#DC2626" stroke-width="1.6" stroke-dasharray="5 3"/>
+  <rect x="630" y="284" width="112" height="20" rx="6" fill="#FEF2F2" stroke="#FECACA" stroke-width="1"/>
+  <text x="686" y="298" text-anchor="middle" class="font edge-lbl" fill="#B91C1C">审查打回返工重试</text>
+
+  <!-- Footer legend -->
+  <rect x="32" y="346" width="1056" height="30" rx="8" fill="#FFFFFF" stroke="#E2E8F0" stroke-width="1"/>
+  <line x1="50" y1="361" x2="76" y2="361" stroke="#2563EB" stroke-width="2"/>
+  <text x="84" y="365" class="font card-desc">编排派发</text>
+
+  <line x1="162" y1="361" x2="188" y2="361" stroke="#64748B" stroke-width="1.8" stroke-dasharray="4 3"/>
+  <text x="196" y="365" class="font card-desc">只读依赖输入</text>
+
+  <line x1="300" y1="361" x2="326" y2="361" stroke="#059669" stroke-width="2"/>
+  <text x="334" y="365" class="font card-desc">门禁 / 审查通过</text>
+
+  <line x1="452" y1="361" x2="478" y2="361" stroke="#DC2626" stroke-width="1.8" stroke-dasharray="5 3"/>
+  <text x="486" y="365" class="font card-desc">失败自动返工回路（支持候选模型顺延）</text>
+
+  <text x="1070" y="365" text-anchor="end" class="font card-desc" fill="#64748B">权限护栏：bwrap / sandbox-exec / Restricted Token</text>
+</svg>

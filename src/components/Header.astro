@@ -1,0 +1,141 @@
+---
+import config from 'virtual:starlight/user-config';
+import LanguageSelect from '@astrojs/starlight/components/LanguageSelect.astro';
+import Search from 'starlight-theme-black/overrides/Search.astro';
+import SocialIcons from 'starlight-theme-black/overrides/SocialIcons.astro';
+import ThemeSelect from 'starlight-theme-black/overrides/ThemeSelect.astro';
+import SiteTitle from 'starlight-theme-black/overrides/SiteTitle.astro';
+import { resolveLocale, resolveNavLinks } from '../lib/i18nNav';
+
+const shouldRenderSearch =
+  config.pagefind || config.components.Search !== '@astrojs/starlight/components/Search.astro';
+
+const currentPath = Astro.url.pathname;
+const locale = resolveLocale(Astro.locals.starlightRoute?.locale, currentPath);
+const navItems = resolveNavLinks(locale);
+---
+
+<div class="site-title-wrapper">
+  <SiteTitle />
+  <nav class="nav-bar">
+    {
+      navItems.map((nav) => (
+        <a class:list={[{ active: currentPath === nav.href }]} href={nav.href} {...nav.attrs}>
+          {nav.label}
+        </a>
+      ))
+    }
+  </nav>
+</div>
+
+<button class="show-modal" popovertargetaction="toggle" popovertarget="drawer">
+  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+    <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 9h16.5m-16.5 6.75h16.5"></path>
+  </svg>
+  <span class="sr-only">{locale === 'en' ? 'Toggle Menu' : '打开导航菜单'}</span>
+</button>
+
+<div class="header-right">
+  {shouldRenderSearch && <Search />}
+
+  <nav class="header-nav">
+    <div>
+      <SocialIcons />
+    </div>
+    <div>
+      <ThemeSelect />
+    </div>
+    <div>
+      <LanguageSelect />
+    </div>
+  </nav>
+</div>
+
+<style>
+  .site-title-wrapper {
+    display: none;
+    margin-right: 1rem;
+  }
+  @media (min-width: 768px) {
+    .site-title-wrapper {
+      display: flex;
+    }
+  }
+
+  .nav-bar {
+    font-size: 0.875rem;
+    line-height: 1.25rem;
+    gap: 1rem;
+    align-items: center;
+    display: flex;
+  }
+
+  @media (min-width: 1280px) {
+    .nav-bar {
+      gap: 1.5rem;
+    }
+  }
+
+  .nav-bar a {
+    text-decoration: none;
+    transition-property: color, background-color, border-color, text-decoration-color, fill, stroke;
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+    transition-duration: 0.15s;
+    color: color-mix(in oklab, var(--foreground) 80%, transparent);
+  }
+
+  .nav-bar a:hover {
+    color: var(--foreground);
+  }
+
+  .nav-bar a.active {
+    color: var(--foreground);
+  }
+
+  .header-right {
+    gap: 0.5rem;
+    justify-content: space-between;
+    align-items: center;
+    flex: 1 1 0%;
+    display: flex;
+  }
+
+  @media (min-width: 768px) {
+    .header-right {
+      justify-content: flex-end;
+    }
+  }
+
+  .header-nav {
+    gap: 0.125rem;
+    align-items: center;
+    display: flex;
+  }
+
+  .show-modal {
+    all: unset;
+    display: inline-flex;
+    margin-right: 0.5rem;
+    margin-left: -0.5rem;
+    height: 2rem;
+    width: 2rem;
+    align-items: center;
+    justify-content: center;
+    padding-bottom: 0.5rem;
+    padding-top: 0.5rem;
+    font-size: 1rem;
+    line-height: 1.5rem;
+    cursor: pointer;
+  }
+
+  @media (min-width: 768px) {
+    .show-modal {
+      display: none;
+    }
+  }
+
+  .show-modal > svg {
+    width: 1.5rem;
+    height: 1.5rem;
+  }
+</style>

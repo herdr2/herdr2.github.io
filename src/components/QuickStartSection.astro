@@ -1,0 +1,402 @@
+---
+const guideChapters = [
+  {
+    num: '01',
+    title: '安装、快速上手与界面导览',
+    desc: '多平台安装、双平面理念、必配 Core AI 欢迎向导、5 大区域与 CLI + ACP 闭环。',
+    href: '/guide/01-getting-started/',
+  },
+  {
+    num: '02',
+    title: '工作区、终端与代码面板',
+    desc: 'Space/Tab/Split 布局、Ghostty 持久化终端、文件/变更面板与闪念清单。',
+    href: '/guide/02-workspaces-and-terminals/',
+  },
+  {
+    num: '03',
+    title: '无头 ACP 智能体与权限控制',
+    desc: '14 种预设、结构化对话、Inbox 与 --steer 插话、行内审批与内置 MCP。',
+    href: '/guide/03-headless-acp-agents/',
+  },
+  {
+    num: '04',
+    title: '全局 Core AI、润色输入、接力与快照',
+    desc: '必配 Core AI 中枢、原地润色输入与撤销、接力/分叉/发送上下文与无污染快照。',
+    href: '/guide/04-handoff-checkpoints-and-ai/',
+  },
+  {
+    num: '05',
+    title: 'Drove 多智能体 DAG 编排',
+    desc: '角色一键配置、先 Plan 再 /drove 编排、Review 熔断与 Drove Web 7 大工作台。',
+    href: '/guide/05-drove-orchestration/',
+  },
+  {
+    num: '06',
+    title: '远程主机、热定制与自动化自检',
+    desc: 'SSH 多机合一、Layouts/Mods 热重载定制与隔离沙盒自动化 QA 框架。',
+    href: '/guide/06-remote-customization-and-qa/',
+  },
+];
+
+const codeTabs = [
+  {
+    id: 'skill',
+    label: '1. 通过 herdr2-install Skill 安装',
+    code: `# 直接把下面这句话发给你的 AI 编程助手（Antigravity / Claude Code / Codex / Cursor / OpenCode / Windsurf）：
+请读取 https://raw.githubusercontent.com/herdr2/herdr2/main/skills/herdr2-install/SKILL.md
+并按 herdr2-install skill 步骤帮我安装 Herdr2（桌面端 + h2 核心 + 配套 Skills）。
+
+# 安装过程全自动，无需手动挑包或敲命令：
+# ✓ 自动识别 macOS / Linux / Windows / WSL 环境并安装 Herdr2 桌面端与 h2 核心
+# ✓ 自动拉起后台常驻守护进程，并注入 /drove、/drove-setup、/drove-add、herdr2 全部配套 Skills`,
+  },
+  {
+    id: 'drove',
+    label: '2. 在 Herdr2 App 里用 Skill 指挥多 Agent 协作',
+    code: `# 打开 Herdr2 桌面应用 → 添加项目工作区 → 点击顶部「+」启动你的主 Agent（如 Claude Code / Codex / Antigravity）
+# 全程无需手敲命令行，直接在对话框里调用已自动装好的 Skills 即可：
+
+# ① 首次配置角色与模型（也可在「设置 → Drove」界面可视化勾选）
+/drove-setup 帮我探测本机可用的 Agent，并配置 coder / tester / reviewer 角色
+
+# ② 一句话拉起 Drove 多 Agent 牧群（自动拆解 DAG、隔离 Worktree 并行编码 + 验收 + 异构审查）
+/drove 为支付回调接口补齐幂等校验、边界单元测试与接口文档
+
+# ③ 随时热追加后续任务（直接复用已预热的 Worker 上下文，无需重启）
+/drove-add 顺便把相关告警日志与异常指标埋点也补上`,
+  },
+];
+---
+
+<section class="h2-section" id="quickstart">
+  <div class="h2-container">
+    <div class="h2-section-header h2-section-header--center">
+      <span class="h2-eyebrow">快速安装与上手流程</span>
+      <h2 class="h2-section-title">全程 Agent + Skill 驱动，无需手敲繁琐命令</h2>
+      <p class="h2-section-desc">
+        先用 <a class="qs-inline-link" href="/guide/install/"><code>herdr2-install</code> Skill</a> 一键装好环境，再打开
+        Herdr2 桌面端启动任意主 Agent，直接通过 <code>/drove</code>、<code>/drove-setup</code>、<code>/drove-add</code>
+        等配套 Skills 指挥多 Agent 牧群协作交付。
+      </p>
+    </div>
+
+    <div class="qs-code-card">
+      <div class="qs-code-header">
+        <div class="qs-tabs" role="tablist">
+          {
+            codeTabs.map((t, idx) => (
+              <button
+                type="button"
+                role="tab"
+                class={`qs-tab ${idx === 0 ? 'is-active' : ''}`}
+                data-qs-tab={t.id}
+              >
+                {t.label}
+              </button>
+            ))
+          }
+        </div>
+        <button type="button" class="qs-copy-btn" data-qs-copy>
+          复制内容
+        </button>
+      </div>
+      {
+        codeTabs.map((t, idx) => (
+          <pre class={`qs-pre ${idx === 0 ? 'is-active' : ''}`} data-qs-panel={t.id}><code>{t.code}</code></pre>
+        ))
+      }
+    </div>
+
+    <div class="h2-grid-3 guide-grid">
+      {
+        guideChapters.map((c) => (
+          <a class="h2-card guide-card" href={c.href}>
+            <span class="guide-num">CHAPTER {c.num}</span>
+            <h3 class="guide-title">{c.title}</h3>
+            <p class="guide-desc">{c.desc}</p>
+            <span class="guide-more">开始阅读 →</span>
+          </a>
+        ))
+      }
+    </div>
+
+    <div class="ack-banner">
+      <div class="ack-text">
+        <strong>特别鸣谢原版 Herdr 与开源社区</strong>
+        <p>
+          Herdr2 站在巨人的肩膀上成长，衷心感谢原版
+          <a href="https://github.com/herdrdev/herdr-app" target="_blank" rel="noopener noreferrer">
+            Herdr
+          </a>
+          奠定的桌面与守护进程解耦架构哲学，以及
+          <a href="https://www.gpui.rs/" target="_blank" rel="noopener noreferrer">GPUI</a>、
+          <a href="https://ghostty.org/" target="_blank" rel="noopener noreferrer">Ghostty</a> 与
+          <a href="https://agentclientprotocol.com/" target="_blank" rel="noopener noreferrer">ACP</a>
+          等优秀开源项目。
+        </p>
+      </div>
+      <div class="ack-actions">
+        <a class="h2-btn h2-btn--primary" href="/guide/install/">查看安装指南</a>
+        <a class="h2-btn h2-btn--secondary" href="/guide/">进入文档中心</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="h2-lightbox" id="h2-lightbox" role="dialog" aria-modal="true" aria-label="图片放大预览">
+  <img id="h2-lightbox-img" src="" alt="" />
+</div>
+
+<script>
+  // Feature Tabs switching
+  document.querySelectorAll('[data-ft-tab]').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      const id = btn.getAttribute('data-ft-tab');
+      document.querySelectorAll('[data-ft-tab]').forEach((el) => {
+        const active = el.getAttribute('data-ft-tab') === id;
+        el.classList.toggle('is-active', active);
+        el.setAttribute('aria-selected', active ? 'true' : 'false');
+      });
+      document.querySelectorAll('[data-ft-panel]').forEach((panel) => {
+        panel.classList.toggle('is-active', panel.getAttribute('data-ft-panel') === id);
+      });
+    });
+  });
+
+  // QuickStart Code Tabs switching
+  document.querySelectorAll('[data-qs-tab]').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      const id = btn.getAttribute('data-qs-tab');
+      document.querySelectorAll('[data-qs-tab]').forEach((el) => {
+        el.classList.toggle('is-active', el.getAttribute('data-qs-tab') === id);
+      });
+      document.querySelectorAll('[data-qs-panel]').forEach((panel) => {
+        panel.classList.toggle('is-active', panel.getAttribute('data-qs-panel') === id);
+      });
+    });
+  });
+
+  // Copy button for QuickStart
+  async function copyText(text: string, button: Element) {
+    try {
+      await navigator.clipboard.writeText(text);
+      const original = button.textContent;
+      button.textContent = '已复制 ✓';
+      setTimeout(() => {
+        button.textContent = original;
+      }, 1800);
+    } catch {
+      // Fallback ignored in restricted environments
+    }
+  }
+
+  document.querySelectorAll('[data-qs-copy]').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      const activePre = document.querySelector('.qs-pre.is-active code');
+      if (activePre?.textContent) copyText(activePre.textContent.trim(), btn);
+    });
+  });
+
+  // Image Zoom Lightbox
+  const lightbox = document.getElementById('h2-lightbox');
+  const lightboxImg = document.getElementById('h2-lightbox-img') as HTMLImageElement | null;
+
+  document.querySelectorAll('img.h2-zoomable').forEach((img) => {
+    img.addEventListener('click', () => {
+      if (!lightbox || !lightboxImg) return;
+      lightboxImg.src = (img as HTMLImageElement).src;
+      lightboxImg.alt = (img as HTMLImageElement).alt;
+      lightbox.classList.add('is-open');
+    });
+  });
+
+  lightbox?.addEventListener('click', () => {
+    lightbox.classList.remove('is-open');
+  });
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') lightbox?.classList.remove('is-open');
+  });
+</script>
+
+<style>
+  .qs-inline-link {
+    color: var(--h2-accent);
+    text-decoration: none;
+    font-weight: 600;
+  }
+
+  .qs-inline-link:hover {
+    text-decoration: underline;
+  }
+
+  .qs-code-card {
+    border-radius: 14px;
+    overflow: hidden;
+    border: 1px solid var(--h2-border-strong);
+    background: var(--h2-code-bg);
+    color: var(--h2-code-fg);
+    margin-bottom: 2.5rem;
+    box-shadow: var(--h2-shadow-lg);
+  }
+
+  .qs-code-header {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.75rem;
+    padding: 0.65rem 0.9rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    background: rgba(255, 255, 255, 0.03);
+  }
+
+  .qs-tabs {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+  }
+
+  .qs-tab {
+    padding: 0.35rem 0.78rem;
+    border-radius: 7px;
+    border: 1px solid transparent;
+    background: transparent;
+    color: #94a3b8;
+    font-size: 0.82rem;
+    cursor: pointer;
+    transition: all 140ms ease;
+  }
+
+  .qs-tab:hover {
+    color: #f8fafc;
+  }
+
+  .qs-tab.is-active {
+    background: rgba(97, 175, 239, 0.18);
+    border-color: rgba(97, 175, 239, 0.38);
+    color: #93c5fd;
+    font-weight: 600;
+  }
+
+  .qs-copy-btn {
+    padding: 0.32rem 0.75rem;
+    border-radius: 7px;
+    border: 1px solid rgba(255, 255, 255, 0.16);
+    background: rgba(255, 255, 255, 0.07);
+    color: #e2e8f0;
+    font-size: 0.78rem;
+    cursor: pointer;
+  }
+
+  .qs-copy-btn:hover {
+    background: rgba(255, 255, 255, 0.15);
+  }
+
+  .qs-pre {
+    display: none;
+    margin: 0;
+    padding: 1.25rem 1.4rem;
+    overflow-x: auto;
+    font-family: var(--sl-font-mono);
+    font-size: 0.85rem;
+    line-height: 1.7;
+    background: transparent;
+  }
+
+  .qs-pre.is-active {
+    display: block;
+  }
+
+  .guide-grid {
+    margin-bottom: 3rem;
+  }
+
+  .guide-card {
+    display: flex;
+    flex-direction: column;
+    text-decoration: none;
+    color: inherit;
+  }
+
+  .guide-card:hover {
+    border-color: var(--h2-accent-border);
+    transform: translateY(-2px);
+  }
+
+  .guide-num {
+    font-family: var(--sl-font-mono);
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    color: var(--h2-accent);
+    margin-bottom: 0.5rem;
+  }
+
+  .guide-title {
+    margin: 0 0 0.5rem;
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: var(--h2-text);
+  }
+
+  .guide-desc {
+    margin: 0 0 1rem;
+    font-size: 0.88rem;
+    color: var(--h2-text-muted);
+    line-height: 1.6;
+    flex: 1;
+  }
+
+  .guide-more {
+    font-size: 0.84rem;
+    font-weight: 600;
+    color: var(--h2-accent);
+  }
+
+  .ack-banner {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1.5rem;
+    padding: 1.8rem 2rem;
+    border-radius: 16px;
+    border: 1px solid var(--h2-border-strong);
+    background: var(--h2-surface-subtle);
+  }
+
+  .ack-text {
+    max-width: 680px;
+  }
+
+  .ack-text strong {
+    display: block;
+    font-size: 1.05rem;
+    margin-bottom: 0.4rem;
+    color: var(--h2-text);
+  }
+
+  .ack-text p {
+    margin: 0;
+    font-size: 0.9rem;
+    color: var(--h2-text-muted);
+    line-height: 1.7;
+  }
+
+  .ack-text a {
+    color: var(--h2-accent);
+    text-decoration: none;
+    font-weight: 500;
+  }
+
+  .ack-text a:hover {
+    text-decoration: underline;
+  }
+
+  .ack-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+  }
+</style>

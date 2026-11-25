@@ -1,0 +1,142 @@
+---
+const presets = [
+  { name: 'claude', label: 'Claude Code' },
+  { name: 'codex', label: 'OpenAI Codex' },
+  { name: 'agy', label: 'Antigravity' },
+  { name: 'gemini', label: 'Gemini CLI' },
+  { name: 'cursor', label: 'Cursor Agent' },
+  { name: 'opencode', label: 'OpenCode' },
+  { name: 'copilot', label: 'GitHub Copilot' },
+  { name: 'kimi', label: 'Kimi CLI' },
+  { name: 'qwen', label: 'Qwen Code' },
+  { name: 'pi', label: 'Pi Agent' },
+  { name: 'hermes', label: 'Hermes' },
+  { name: 'dsh', label: 'DSH' },
+  { name: 'glm', label: 'GLM Agent' },
+  { name: 'zcode', label: 'ZCode' },
+];
+---
+
+<section class="h2-section">
+  <div class="h2-container">
+    <div class="preset-box">
+      <div class="preset-head">
+        <div>
+          <span class="h2-eyebrow">Harness of Harnesses · 开放 ACP v1 协议</span>
+          <h2 class="preset-title">统一收编 14 种主流编程 Agent Harness</h2>
+          <p class="preset-sub">
+            不被单一模型或工具绑架。Herdr2 作为上层 ADE 协作平台，支持通过 <code>h2 run -p &lt;preset&gt;</code> 或桌面端 <code>+</code> 菜单并行调度任意 Agent Harness，并支持运行时热切模型、思考强度与跨 Agent 上下文接力。
+          </p>
+        </div>
+        <a class="h2-btn h2-btn--secondary" href="/guide/03-headless-acp-agents/">
+          查看全部预设与配置 →
+        </a>
+      </div>
+
+      <div class="preset-grid">
+        {
+          presets.map((p) => (
+            <div class="preset-chip">
+              <span class="preset-dot" aria-hidden="true"></span>
+              <code>{p.name}</code>
+              <span class="preset-label">{p.label}</span>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .preset-box {
+    border-radius: 18px;
+    border: 1px solid var(--h2-border);
+    background: var(--h2-surface-subtle);
+    padding: 2.2rem;
+  }
+
+  .preset-head {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 1.25rem;
+    margin-bottom: 1.75rem;
+  }
+
+  .preset-title {
+    margin: 0.75rem 0 0.5rem;
+    font-size: clamp(1.45rem, 2.5vw, 1.95rem);
+    font-weight: 700;
+    letter-spacing: -0.02em;
+  }
+
+  .preset-sub {
+    margin: 0;
+    max-width: 680px;
+    font-size: 0.95rem;
+    color: var(--h2-text-muted);
+  }
+
+  .preset-sub code {
+    font-family: var(--sl-font-mono);
+    font-size: 0.85em;
+    padding: 0.12rem 0.4rem;
+    border-radius: 5px;
+    background: var(--h2-surface);
+    border: 1px solid var(--h2-border);
+  }
+
+  .preset-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(175px, 1fr));
+    gap: 0.7rem;
+  }
+
+  .preset-chip {
+    display: flex;
+    align-items: center;
+    gap: 0.55rem;
+    padding: 0.62rem 0.85rem;
+    border-radius: 10px;
+    background: var(--h2-surface);
+    border: 1px solid var(--h2-border);
+    transition: border-color 150ms ease, transform 150ms ease;
+  }
+
+  .preset-chip:hover {
+    border-color: var(--h2-accent-border);
+    transform: translateY(-1px);
+  }
+
+  .preset-dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 999px;
+    background: var(--h2-accent);
+    flex-shrink: 0;
+  }
+
+  .preset-chip code {
+    font-family: var(--sl-font-mono);
+    font-size: 0.86rem;
+    font-weight: 600;
+    color: var(--h2-text);
+    background: transparent;
+    padding: 0;
+  }
+
+  .preset-label {
+    margin-left: auto;
+    font-size: 0.75rem;
+    color: var(--h2-text-subtle);
+    white-space: nowrap;
+  }
+
+  @media (max-width: 640px) {
+    .preset-box {
+      padding: 1.4rem;
+    }
+  }
+</style>

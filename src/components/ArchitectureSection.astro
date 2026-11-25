@@ -1,0 +1,149 @@
+---
+const pillars = [
+  {
+    tag: '01 · 架构隔离',
+    title: '双注册表严格解耦',
+    desc: '人类工作区 PTY（t*）与无头 ACP 智能体（a*）拥有独立生命周期与进程环境，彻底杜绝 TERM* 变量污染和终端阻塞。',
+  },
+  {
+    tag: '02 · 高速通信',
+    title: '9 字节二进制多路复用协议',
+    desc: '单连接复用 JSON-RPC 控制面与多路终端/事件流，内置 256 KiB 滑动信用窗口流控与断线重同步保护。',
+  },
+  {
+    tag: '03 · 零污染版本',
+    title: '隐藏 Git Ref 轮次快照',
+    desc: '每个智能体回合自动生成工作区树快照存入隐藏 Git Ref，随时纯净 Diff、回滚或自然语言 bisect，不弄脏 Git 分支。',
+  },
+  {
+    tag: '04 · 安全边界',
+    title: '角色权限护栏与 OS 沙盒',
+    desc: 'Drove 按角色限定 writable / scoped_write / readonly 权限边界并结合操作系统级沙盒与独立 Git Worktree。',
+  },
+  {
+    tag: '05 · 原生零冲突',
+    title: '与原版 Herdr 长期并行共存',
+    desc: '独立二进制名（h2 / herdr2）、环境变量（H2_* / HERDR2_APP_HOME）与运行时套接字目录，与原版 hc 互不干扰。',
+  },
+  {
+    tag: '06 · 质量保障',
+    title: 'L0–L3 隔离沙盒自动化 QA',
+    desc: '内置零污染沙盒测试运行器与文档契约零漂移检查，确保每一次核心改动与 UI 更新都有真实截图与回归护航。',
+  },
+];
+---
+
+<section class="h2-section" id="architecture">
+  <div class="h2-container">
+    <div class="h2-section-header h2-section-header--center">
+      <span class="h2-eyebrow">工程架构</span>
+      <h2 class="h2-section-title">桌面窗口与核心运行时彻底解耦</h2>
+      <p class="h2-section-desc">
+        客户端只是轻量 GPU 渲染与交互壳层，真正的终端持有者、ACP 会话状态机、快照与 Drove 编排引擎全部由
+        Rust 编写的 <code>h2</code> 守护进程持久化驱动。
+      </p>
+    </div>
+
+    <div class="arch-diagram-card">
+      <div class="arch-diagram-bar">
+        <span>Herdr2 双平面解耦架构（herdr-app ↔ h2 / herdr-core ↔ PTY Holder &amp; ACP v1）</span>
+        <a href="/architecture/principles/">深入阅读架构原理 →</a>
+      </div>
+      <div class="arch-diagram-body">
+        <img
+          src="/images/docs/diagram-dual-plane-architecture.svg"
+          alt="Herdr2 双平面解耦架构图"
+          class="h2-zoomable"
+          loading="lazy"
+        />
+      </div>
+    </div>
+
+    <div class="h2-grid-3 arch-pillars">
+      {
+        pillars.map((p) => (
+          <article class="h2-card">
+            <span class="pillar-tag">{p.tag}</span>
+            <h3 class="pillar-title">{p.title}</h3>
+            <p class="pillar-desc">{p.desc}</p>
+          </article>
+        ))
+      }
+    </div>
+  </div>
+</section>
+
+<style>
+  .arch-diagram-card {
+    border-radius: 16px;
+    overflow: hidden;
+    border: 1px solid var(--h2-border-strong);
+    background: var(--h2-surface);
+    box-shadow: var(--h2-shadow-lg);
+    margin-bottom: 2rem;
+  }
+
+  .arch-diagram-bar {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.75rem;
+    padding: 0.75rem 1.15rem;
+    background: var(--h2-surface-subtle);
+    border-bottom: 1px solid var(--h2-border);
+    font-size: 0.82rem;
+    color: var(--h2-text-subtle);
+  }
+
+  .arch-diagram-bar a {
+    color: var(--h2-accent);
+    text-decoration: none;
+    font-weight: 600;
+  }
+
+  .arch-diagram-bar a:hover {
+    text-decoration: underline;
+  }
+
+  .arch-diagram-body {
+    padding: 1.5rem;
+    background: #ffffff;
+    display: flex;
+    justify-content: center;
+  }
+
+  .arch-diagram-body img {
+    width: 100%;
+    max-width: 980px;
+    height: auto;
+    cursor: zoom-in;
+  }
+
+  .arch-pillars {
+    margin-top: 1.5rem;
+  }
+
+  .pillar-tag {
+    display: inline-block;
+    font-family: var(--sl-font-mono);
+    font-size: 0.74rem;
+    font-weight: 600;
+    color: var(--h2-accent);
+    margin-bottom: 0.5rem;
+  }
+
+  .pillar-title {
+    margin: 0 0 0.5rem;
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: var(--h2-text);
+  }
+
+  .pillar-desc {
+    margin: 0;
+    font-size: 0.9rem;
+    color: var(--h2-text-muted);
+    line-height: 1.65;
+  }
+</style>

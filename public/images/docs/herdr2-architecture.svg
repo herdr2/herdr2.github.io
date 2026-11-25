@@ -1,0 +1,168 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1240" height="850" viewBox="0 0 1240 850" role="img" aria-labelledby="title desc" style="max-width:100%;height:auto">
+  <title id="title">Herdr2 总体架构：双平面混合运行时</title>
+  <desc id="desc">桌面工作台与 CLI 入口经多路复用 IPC 总线连接同一个 Core 守护进程。统一调度内核之下，左侧青绿通道连接终端运行时与持久化 holder、真实 PTY，右侧靛紫通道连接无头 ACP 运行时与后台子智能体；两条专属通道跨越显式的进程隔离边界。底部两类进程均可调用内置 h2 CLI 或 h2 mcp，经左侧外沿的琥珀虚线回到 Channel 0，形成子智能体派生、状态通知和父节点唤醒的编排闭环。</desc>
+  <defs>
+    <style>
+      text { font-family: "Noto Sans CJK SC", "PingFang SC", "Microsoft YaHei", sans-serif; fill: #24344b; }
+      .title { font-size: 28px; font-weight: 700; }
+      .subtitle { font-size: 17px; fill: #586b82; }
+      .heading { font-size: 21px; font-weight: 700; }
+      .module { font-size: 20px; font-weight: 700; }
+      .compact { font-size: 18px; font-weight: 700; }
+      .body { font-size: 16px; fill: #52657c; }
+      .pill-text { font-size: 18px; font-weight: 700; }
+      .connector-label { font-size: 16px; fill: #586b82; }
+      .legend-text { font-size: 16px; fill: #52657c; }
+      .card { fill: #fff; stroke: #cbd7e5; stroke-width: 1.3; }
+      .teal-card { fill: #fff; stroke: #acd3cc; stroke-width: 1.3; }
+      .indigo-card { fill: #fff; stroke: #c5bee1; stroke-width: 1.3; }
+      .control, .terminal, .acp, .loop { fill: none; stroke-width: 2.3; stroke-linecap: round; stroke-linejoin: round; }
+      .control { stroke: #355c8c; marker-end: url(#arrow-blue); }
+      .terminal { stroke: #168a80; marker-start: url(#arrow-teal); marker-end: url(#arrow-teal); }
+      .acp { stroke: #7160b7; marker-start: url(#arrow-indigo); marker-end: url(#arrow-indigo); }
+      .loop { stroke: #b17b23; stroke-dasharray: 6 5; marker-end: url(#arrow-amber); }
+      .two-blue { marker-start: url(#arrow-blue); }
+      /* 颜色工具类置于文字用途类之后，确保多类组合时填色正确。 */
+      .teal { fill: #087d73; }
+      .indigo { fill: #6250ad; }
+      .amber { fill: #986214; }
+      .blue { fill: #355c8c; }
+    </style>
+    <marker id="arrow-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" markerUnits="userSpaceOnUse" orient="auto-start-reverse"><path d="M1 1 9 5 1 9Z" fill="#355c8c"/></marker>
+    <marker id="arrow-teal" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" markerUnits="userSpaceOnUse" orient="auto-start-reverse"><path d="M1 1 9 5 1 9Z" fill="#168a80"/></marker>
+    <marker id="arrow-indigo" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" markerUnits="userSpaceOnUse" orient="auto-start-reverse"><path d="M1 1 9 5 1 9Z" fill="#7160b7"/></marker>
+    <marker id="arrow-amber" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" markerUnits="userSpaceOnUse" orient="auto-start-reverse"><path d="M1 1 9 5 1 9Z" fill="#b17b23"/></marker>
+  </defs>
+  <rect width="1240" height="850" fill="#f7f9fc"/>
+
+  <!-- 顶部只保留整体定位与三项图例。 -->
+  <g id="header">
+    <text x="80" y="46" class="title">Herdr2 总体架构：双平面混合运行时</text>
+    <text x="80" y="87" class="subtitle">人类交互真终端 (t*) 与后台无头子智能体 (a*) 正交隔离 · 同一守护进程统一编排</text>
+    <g id="legend">
+      <path d="M930 36H966" class="control"/>
+      <text x="978" y="42" class="legend-text">控制与事件总线</text>
+      <path d="M930 62H946" fill="none" stroke="#168a80" stroke-width="2.3"/>
+      <path d="M950 62H966" fill="none" stroke="#7160b7" stroke-width="2.3"/>
+      <text x="978" y="68" class="legend-text">双平面专属通道</text>
+      <path d="M930 88H966" class="loop"/>
+      <text x="978" y="94" class="legend-text">子智能体派生与通知闭环</text>
+    </g>
+  </g>
+
+  <!-- 接入层：工作台的左右子块与下方双平面呼应。 -->
+  <g id="desktop" data-box="true">
+    <rect x="80" y="120" width="728" height="162" rx="16" class="card"/>
+    <text x="102" y="150" class="heading">Herdr2 原生桌面工作台（GPUI）</text>
+    <g id="workspace-pane" data-box="true">
+      <rect x="100" y="166" width="330" height="100" rx="11" fill="#edf8f5"/>
+      <text x="118" y="193" class="module teal">真终端工作区窗格</text>
+      <text x="118" y="220" class="body">Space / Tab / 分屏</text>
+      <text x="118" y="245" class="body">Ghostty 硬件加速渲染</text>
+    </g>
+    <g id="agents-pane" data-box="true">
+      <rect x="448" y="166" width="340" height="100" rx="11" fill="#f2effa"/>
+      <text x="466" y="193" class="module indigo">Agents 侧栏与 peek 面板</text>
+      <text x="466" y="220" class="body">双通道状态感知</text>
+      <text x="466" y="245" class="body">无头对话浮层与 Tab 挂载</text>
+    </g>
+  </g>
+  <g id="cli-federation" data-box="true">
+    <rect x="832" y="120" width="376" height="162" rx="16" class="card"/>
+    <text x="854" y="155" class="heading">CLI 与跨机联邦入口</text>
+    <text x="854" y="197" class="body">h2 命令行统一控制</text>
+    <text x="854" y="229" class="body">SSH 远端主机联邦 · machine/a*</text>
+  </g>
+  <g id="access-bus-links">
+    <path d="M360 282V310" class="control two-blue"/>
+    <path d="M1020 282V310" class="control two-blue"/>
+  </g>
+
+  <!-- 总线仅展示控制与实时流的分工。 -->
+  <g id="ipc-bus" data-box="true">
+    <rect x="80" y="310" width="1128" height="97" rx="14" fill="#eaf0f8" stroke="#bacce1" stroke-width="1.3"/>
+    <text x="100" y="336" class="compact blue">多路复用 IPC 总线 <tspan class="body">（Unix Socket / Named Pipe）</tspan></text>
+    <path d="M636 351V395" stroke="#bacce1" stroke-width="1.2"/>
+    <g id="channel-zero">
+      <text x="108" y="368" class="compact blue">Channel 0 · JSON-RPC 控制信道</text>
+      <text x="108" y="394" class="body">编排与管理指令</text>
+    </g>
+    <g id="channel-streams">
+      <text x="660" y="368" class="compact blue">Channel N · 实时流信道</text>
+      <text x="660" y="394" class="body">终端屏幕字节流 · 状态与日志事件流</text>
+    </g>
+  </g>
+  <g id="bus-core-links">
+    <path d="M360 407V435" class="control two-blue"/>
+    <path d="M1020 407V435" class="control two-blue"/>
+  </g>
+
+  <!-- Core 框只围住调度与运行时；浅色通道继续延伸到 OS 进程。 -->
+  <rect x="80" y="435" width="1128" height="238" rx="16" fill="#edf2f9" stroke="#c3d0e1" stroke-width="1.3"/>
+  <g id="plane-backdrops">
+    <rect x="92" y="541" width="552" height="296" rx="14" fill="#e6f4ef"/>
+    <rect x="660" y="541" width="536" height="296" rx="14" fill="#eeebf8"/>
+  </g>
+  <g id="core">
+    <text x="100" y="462" class="heading blue">herdr2 Core 守护进程</text>
+    <g id="scheduler" data-box="true">
+      <rect x="100" y="475" width="1088" height="59" rx="10" class="card"/>
+      <text x="644" y="500" text-anchor="middle" class="module blue">统一寻址与混合父子调度内核</text>
+      <text x="644" y="527" text-anchor="middle" class="body">t* / a* 统一寻址 · wait 等待唤醒 · 父子跨层通知 · 随父退出回收</text>
+    </g>
+    <text x="108" y="565" class="pill-text teal">人类工作区通道（t1, t2, …）</text>
+    <text x="678" y="565" class="pill-text indigo">后台子智能体通道（a1, a2, …）</text>
+    <g id="terminal-runtime" data-box="true">
+      <rect x="108" y="579" width="520" height="86" rx="10" class="teal-card"/>
+      <text x="126" y="604" class="module teal">终端运行时平面</text>
+      <text x="126" y="632" class="body">终端会话注册表 · 服务端 VT 屏幕镜像</text>
+      <text x="126" y="656" class="body">多视图尺寸仲裁</text>
+    </g>
+    <g id="acp-runtime" data-box="true">
+      <rect x="676" y="579" width="504" height="86" rx="10" class="indigo-card"/>
+      <text x="694" y="604" class="module indigo">无头 ACP 运行时平面</text>
+      <text x="694" y="632" class="body">串行 Inbox 队列 · --steer 抢占</text>
+      <text x="694" y="656" class="body">权限仲裁 · 结构化 Transcript</text>
+    </g>
+  </g>
+
+  <!-- 专属协议连线跨越边界，标签与竖线分开。 -->
+  <g id="process-links">
+    <path d="M260 667V742" class="terminal"/>
+    <text x="278" y="695" class="connector-label teal">holder 帧协议 / VT 屏幕流</text>
+    <path d="M1034 667V742" class="acp"/>
+    <text x="758" y="695" class="connector-label indigo">stdio NDJSON / ACP 协议</text>
+  </g>
+  <g id="process-boundary">
+    <path d="M80 705H550 M738 705H1208" fill="none" stroke="#92a2b8" stroke-width="1.4" stroke-dasharray="5 5"/>
+    <rect x="550" y="691" width="188" height="28" rx="14" fill="#f7f9fc"/>
+    <text x="644" y="711" text-anchor="middle" class="connector-label">进程隔离边界</text>
+    <text x="650" y="737" text-anchor="middle" class="connector-label">OS 子进程层</text>
+  </g>
+
+  <!-- 执行进程之间保留独立编排桥；虚线在卡片外连入。 -->
+  <g id="terminal-process" data-box="true">
+    <rect x="100" y="744" width="338" height="88" rx="11" class="teal-card"/>
+    <text x="116" y="769" class="compact teal" style="font-size:17px">持久化 holder + 真实 PTY / ConPTY</text>
+    <text x="116" y="797" class="body">交互式 Shell · Claude / Codex</text>
+    <text x="116" y="821" class="body">主控 CLI 与人类实时对话</text>
+  </g>
+  <g id="orchestration-entry" data-box="true">
+    <rect x="462" y="744" width="376" height="88" rx="11" fill="#fff9ec" stroke="#d6b678" stroke-width="1.4"/>
+    <text x="650" y="769" text-anchor="middle" class="compact amber">内置编排入口（h2 CLI / h2 mcp）</text>
+    <text x="650" y="797" text-anchor="middle" class="body amber">run / send / wait / approve</text>
+    <text x="650" y="821" text-anchor="middle" class="body">主控 CLI 与 ACP 子智能体均可调用</text>
+  </g>
+  <g id="acp-process" data-box="true">
+    <rect x="862" y="744" width="338" height="88" rx="11" class="indigo-card"/>
+    <text x="878" y="769" class="module indigo">纯无头 ACP 子智能体进程</text>
+    <text x="878" y="797" class="body">零 PTY · 屏蔽终端与文件能力</text>
+    <text x="878" y="821" class="body">后台静默执行</text>
+  </g>
+  <g id="orchestration-loop">
+    <path d="M438 790H460" class="loop"/>
+    <path d="M862 790H840" class="loop"/>
+    <path d="M650 833V843H48V381H98" class="loop"/>
+    <text x="27" y="605" transform="rotate(-90 27 605)" text-anchor="middle" class="connector-label amber">派生 · 通知 · 唤醒</text>
+  </g>
+</svg>

@@ -1,0 +1,318 @@
+---
+interface Props {
+  lang?: 'zh' | 'en';
+}
+
+const { lang = 'zh' } = Astro.props;
+const isEn = lang === 'en';
+
+const skillUrl =
+  'https://raw.githubusercontent.com/herdr2/herdr2/main/skills/herdr2-install/SKILL.md';
+const installPrompt = isEn
+  ? `Read ${skillUrl} and follow the herdr2-install skill to install Herdr2, h2 core, and companion skills.`
+  : `请读取 ${skillUrl} 并按 herdr2-install skill 步骤帮我安装 Herdr2（桌面端 + h2 核心 + 配套 Skills）`;
+---
+
+<section class="h2-section h2-section--hero">
+  <div class="h2-container">
+    <div class="hero-copy">
+      <a
+        class="h2-eyebrow"
+        href="https://github.com/herdr2/herdr2/releases/latest"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        <span class="h2-eyebrow-dot"></span>
+        {
+          isEn
+            ? 'Harness of Harnesses · Multi-Agent ADE · Apache-2.0 · macOS / Linux / Windows'
+            : 'Harness of Harnesses · 多 Agent 协作平台（ADE）· Apache-2.0 开源'
+        }
+      </a>
+
+      <h1 class="hero-title">
+        {
+          isEn ? (
+            <>
+              Harness of Harnesses
+              <br />
+              <span class="hero-accent">Always-On Multi-Agent ADE</span>
+            </>
+          ) : (
+            <>
+              Harness of Harnesses
+              <br />
+              <span class="hero-accent">永不掉线的多 Agent 协作平台</span>
+            </>
+          )
+        }
+      </h1>
+
+      <p class="hero-subtitle">
+        {
+          isEn
+            ? 'Herdr2 is an Agentic Development Environment (ADE) that unites 14 coding agent harnesses and Ghostty terminals inside one persistent h2 daemon. Keep agents running nonstop, orchestrate multi-agent swarms with Drove, and accelerate daily workflows with built-in Core AI — like a Herdr guiding a Drove.'
+            : 'Herdr2 是面向 AI 工程时代的新一代 ADE（Agentic Development Environment）：把 14 种异构编程 Agent Harness 与 Ghostty 真终端统一收编到后台常驻守护进程（h2）中——Agent 工作永不掉线、内置 Drove 多智能体 DAG 编排、自带全局 Core AI 能力，让你像牧羊人（Herdr）驱赶牧群（Drove）一样从容指挥多 Agent 并行交付。'
+        }
+      </p>
+
+      <div class="h2-btn-row">
+        <a class="h2-btn h2-btn--primary" href={isEn ? '/en/guide/install/' : '/guide/install/'}>
+          {isEn ? 'Install via herdr2-install Skill →' : '通过 herdr2-install Skill 安装 →'}
+        </a>
+        <a
+          class="h2-btn h2-btn--secondary"
+          href={isEn ? '/en/guide/01-getting-started/' : '/guide/01-getting-started/'}
+        >
+          {isEn ? 'Read User Guide' : '5 分钟快速上手'}
+        </a>
+        <a
+          class="h2-btn h2-btn--ghost"
+          href="https://github.com/herdr2/herdr2"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          {isEn ? 'GitHub' : 'GitHub 仓库'}
+        </a>
+      </div>
+
+      <div class="hero-install-box" role="region" aria-label="herdr2-install skill">
+        <div class="hero-install-top">
+          <div class="hero-install-label">
+            <span class="hero-skill-badge">herdr2-install Skill</span>
+            <span>
+              {
+                isEn
+                  ? 'Send to Antigravity / Claude Code / Codex / Cursor'
+                  : '发给 AI 助手（Antigravity / Claude Code / Codex / Cursor）自动安装'
+              }
+            </span>
+          </div>
+          <div class="hero-install-actions">
+            <a class="hero-skill-link" href="/skills/herdr2-install/SKILL.md" target="_blank">
+              {isEn ? 'View SKILL.md' : '查看 SKILL.md'}
+            </a>
+            <button
+              type="button"
+              class="hero-copy-btn"
+              data-copy-target="hero-install-code"
+              aria-label={isEn ? 'Copy install prompt' : '复制安装指令'}
+            >
+              {isEn ? 'Copy' : '复制'}
+            </button>
+          </div>
+        </div>
+        <div class="hero-install-cmd">
+          <code id="hero-install-code">{installPrompt}</code>
+        </div>
+      </div>
+
+      <div class="hero-pills">
+        <span>Harness of Harnesses · ADE</span>
+        <span>{isEn ? 'Always-On Background Daemon' : 'Agent 后台常驻不掉线'}</span>
+        <span>{isEn ? 'Native Drove DAG Orchestration' : 'Drove 原生 DAG 编排'}</span>
+        <span>{isEn ? 'Built-in Global Core AI' : '自带全局 Core AI 能力'}</span>
+      </div>
+    </div>
+
+    <div class="hero-stage">
+      <div class="h2-window">
+        <div class="h2-window-bar">
+          <div class="h2-window-dots" aria-hidden="true">
+            <span></span><span></span><span></span>
+          </div>
+          <span>Herdr2 — order-service · main · h2 daemon running</span>
+          <span>GPUI Native</span>
+        </div>
+        <img
+          src="/images/docs/02-workspace-overview.png"
+          alt={isEn ? 'Herdr2 Desktop Workspace Overview' : 'Herdr2 主工作台全景真实截图'}
+          class="hero-screenshot h2-zoomable"
+          loading="eager"
+          decoding="async"
+        />
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .hero-copy {
+    width: 100%;
+    max-width: 820px;
+    margin-inline: auto;
+    text-align: center;
+  }
+
+  .hero-title {
+    margin: 1.2rem 0 1rem;
+    font-size: clamp(1.9rem, 4.2vw, 3.25rem);
+    font-weight: 800;
+    line-height: 1.18;
+    letter-spacing: -0.025em;
+    color: var(--h2-text);
+    text-wrap: balance;
+    max-width: 100%;
+    overflow-wrap: break-word;
+  }
+
+  .hero-accent {
+    background: linear-gradient(135deg, var(--h2-accent) 0%, #38bdf8 55%, #818cf8 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+
+  .hero-subtitle {
+    max-width: 680px;
+    margin: 0 auto 1.75rem;
+    font-size: clamp(0.96rem, 1.35vw, 1.08rem);
+    color: var(--h2-text-muted);
+    line-height: 1.75;
+  }
+
+  .hero-install-box {
+    width: 100%;
+    max-width: 780px;
+    margin: 1.65rem auto 1.1rem;
+    border-radius: 14px;
+    background: var(--h2-code-bg);
+    color: var(--h2-code-fg);
+    border: 1px solid var(--h2-border-strong);
+    text-align: left;
+    overflow: hidden;
+    box-shadow: 0 14px 36px -14px rgba(15, 23, 42, 0.35);
+  }
+
+  .hero-install-top {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.6rem;
+    padding: 0.6rem 0.9rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    background: rgba(255, 255, 255, 0.04);
+    font-size: 0.78rem;
+    color: #94a3b8;
+  }
+
+  .hero-install-label {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.55rem;
+  }
+
+  .hero-skill-badge {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.14rem 0.55rem;
+    border-radius: 6px;
+    background: rgba(97, 175, 239, 0.18);
+    border: 1px solid rgba(97, 175, 239, 0.35);
+    color: #93c5fd;
+    font-family: var(--sl-font-mono);
+    font-size: 0.74rem;
+    font-weight: 600;
+  }
+
+  .hero-install-actions {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-left: auto;
+  }
+
+  .hero-skill-link {
+    color: #93c5fd;
+    text-decoration: none;
+    font-size: 0.76rem;
+    padding: 0.25rem 0.5rem;
+    border-radius: 6px;
+  }
+
+  .hero-skill-link:hover {
+    text-decoration: underline;
+  }
+
+  .hero-install-cmd {
+    padding: 0.85rem 1rem;
+    font-family: var(--sl-font-mono);
+    font-size: 0.82rem;
+    line-height: 1.65;
+    overflow-wrap: anywhere;
+  }
+
+  .hero-install-cmd code {
+    background: transparent;
+    padding: 0;
+    color: #e2e8f0;
+    font-size: inherit;
+    white-space: pre-wrap;
+    word-break: break-word;
+  }
+
+  .hero-copy-btn {
+    flex-shrink: 0;
+    padding: 0.28rem 0.72rem;
+    border-radius: 7px;
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    background: rgba(255, 255, 255, 0.09);
+    color: #f8fafc;
+    font-size: 0.76rem;
+    font-family: var(--sl-font);
+    cursor: pointer;
+    transition: background 150ms ease;
+  }
+
+  .hero-copy-btn:hover {
+    background: rgba(255, 255, 255, 0.2);
+  }
+
+  .hero-pills {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.5rem;
+  }
+
+  .hero-pills span {
+    font-size: 0.78rem;
+    color: var(--h2-text-subtle);
+    padding: 0.22rem 0.68rem;
+    border-radius: 999px;
+    background: var(--h2-surface-subtle);
+    border: 1px solid var(--h2-border);
+  }
+
+  .hero-stage {
+    margin-top: 2.5rem;
+    max-width: 1060px;
+    margin-inline: auto;
+  }
+
+  .hero-screenshot {
+    cursor: zoom-in;
+  }
+</style>
+
+<script>
+  document.querySelectorAll('[data-copy-target]').forEach((btn) => {
+    btn.addEventListener('click', async () => {
+      const targetId = btn.getAttribute('data-copy-target');
+      const el = targetId ? document.getElementById(targetId) : null;
+      if (!el?.textContent) return;
+      try {
+        await navigator.clipboard.writeText(el.textContent.trim());
+        const original = btn.textContent;
+        btn.textContent = original === 'Copy' ? 'Copied ✓' : '已复制 ✓';
+        setTimeout(() => {
+          btn.textContent = original;
+        }, 1800);
+      } catch {
+        // Ignore clipboard denial
+      }
+    });
+  });
+</script>

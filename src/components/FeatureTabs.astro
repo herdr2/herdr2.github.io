@@ -1,0 +1,324 @@
+---
+const features = [
+  {
+    id: 'dual-plane',
+    tab: '双平面工作台',
+    badge: 'PTY + ACP',
+    title: '关闭窗口、断开 SSH，终端与智能体照常运行',
+    desc: '交互式 Ghostty 真终端（t1, t2...）与无头结构化 ACP 智能体（a1, a2...）统一托管在后台持久守护进程 h2 中。左侧集中管理多项目工作区、智能体状态树与闪念清单，右侧随开随关文件浏览器、实时 Git Diff 与轮次快照。',
+    bullets: [
+      '基于 GPUI + libghostty-vt 原生 GPU 硬件加速渲染，零 Electron 内存膨胀',
+      'Space / Tab / Split 多级布局，支持任意方向分栏与 Ctrl+Shift+P 94 条模糊命令',
+      '工作区内置文件树预览、实时 Git 变更 Diff 与闪念清单（一键派发给 Agent）',
+    ],
+    docLink: '/guide/02-workspaces-and-terminals/',
+    docLabel: '阅读工作区与终端手册 →',
+    primaryImg: '/images/docs/04-split-terminals.png',
+    primaryCaption: '多终端分栏与工作区管理',
+    secondaryImg: '/images/docs/06-changes-panel.png',
+    secondaryCaption: '右侧实时 Git 变更与 Diff 审查面板',
+  },
+  {
+    id: 'headless-acp',
+    tab: '无头 ACP 与权限仲裁',
+    badge: '14 种预设',
+    title: '零 PTY 污染的结构化智能体协作体验',
+    desc: '摒弃脆弱的终端屏幕抓取。后台智能体通过纯 stdio NDJSON（ACP v1）通信，提供清晰的思维链、工具调用卡片、串行收件箱（Inbox）、--steer 实时插话与行内权限审批，彻底告别乱码与并发冲突。',
+    bullets: [
+      '开箱内置 claude、codex、agy、gemini、cursor、opencode、kimi、qwen 等 14 种预设',
+      '四档权限护栏：approve-reads（默认放行只读、挂起写入）、ask、approve-all、deny-all',
+      '内置 MCP 服务器（h2 mcp），支持父智能体自主派生、监控与编排子智能体树',
+    ],
+    docLink: '/guide/03-headless-acp-agents/',
+    docLabel: '阅读无头 ACP 与权限手册 →',
+    primaryImg: '/images/docs/08-acp-chat-and-agents.png',
+    primaryCaption: '结构化 ACP 对话视图与实时状态树',
+    secondaryImg: '/images/docs/10-acp-permission-blocked.png',
+    secondaryCaption: '危险操作行内挂起与一键权限仲裁',
+  },
+  {
+    id: 'handoff-checkpoints',
+    tab: '接力、快照与自带 AI',
+    badge: 'Handoff + Core AI',
+    title: '自带全局 Core AI：润色、摘要、接力与自然语言排障',
+    desc: 'Herdr2 不止编排外部智能体，自身更内置轻量级全局 Core AI 控制面（兼容 DeepSeek / OpenAI / Ollama），贯穿跨模型上下文接力（Handoff）、提示词润色、Git Diff 自动生成 Commit、终端状态仲裁以及隐藏 Git Ref 快照故障反查。',
+    bullets: [
+      '自带 Core AI 助手：支持提示词润色、AI 生成提交说明、离线进展 Catch-up 简报与子 Agent 摘要',
+      '跨 Agent / 跨模型上下文接力（Handoff）与隔离 Git Worktree 分叉（Fork），无缝换将不丢上下文',
+      '隐藏 Git Ref 逐轮快照与自然语言 h2 checkpoint bisect，不污染正常 Git 分支历史',
+    ],
+    docLink: '/guide/04-handoff-checkpoints-and-ai/',
+    docLabel: '阅读接力、快照与自带 AI 手册 →',
+    primaryImg: '/images/docs/09-handoff-dialog.png',
+    primaryCaption: '跨智能体上下文接力与 AI 推荐交棒',
+    secondaryImg: '/images/docs/11-settings-ai.png',
+    secondaryCaption: '内置全局核心 AI 助手配置面板',
+  },
+  {
+    id: 'drove-dag',
+    tab: 'Drove DAG 编排',
+    badge: '多智能体军团',
+    title: '单守护进程原生多智能体 DAG 编排与实时监控',
+    desc: '面对跨模块复杂需求，一条 h2 drove 命令即可调度编码、测试、文档与异构审查多角色小队，按依赖拓扑并行推进，自动执行 Verify 验收门禁与 Worktree 合并。',
+    bullets: [
+      '按角色严格隔离权限（writable / scoped_write / readonly + OS 级沙盒）',
+      '支持多候选模型故障自动顺延（Fallback），异构模型交叉 Code Review',
+      '内置只读 Web 实时编排画布（127.0.0.1:7799），全局洞察 DAG 拓扑与任务流水线',
+    ],
+    docLink: '/guide/05-drove-orchestration/',
+    docLabel: '阅读 Drove 多智能体编排手册 →',
+    primaryImg: '/images/docs/15-drove-web-dag.png',
+    primaryCaption: 'Drove Web 实时多智能体 DAG 编排画布',
+    secondaryImg: '/images/docs/16-drove-web-tasks.png',
+    secondaryCaption: 'Drove 任务工作台与执行日志检查器',
+  },
+  {
+    id: 'remote-mods',
+    tab: '多机联邦与热定制',
+    badge: 'SSH + Hot Mods',
+    title: '一屏统管本机、WSL 与远程服务器，界面皆可热改',
+    desc: '通过 SSH 将远端 Linux/macOS 编译机与本地工作区汇入同一个窗口，断网重连现场不丢。布局（Layouts）、快捷键（Keys）、主题与 JS 扩展面板（Mods）全为本地文件，保存即秒级热重载。',
+    bullets: [
+      '本机、WSL 与多台远程 SSH 主机同窗切换，像操作本地目录一样调度远端 Agent',
+      '内置 Herdr2 / Terminals / Herdr 98 三套布局，支持自定义 JSON 布局与 JS Mod 面板',
+      '自带 L0–L3 隔离沙盒自动化 QA 框架，零污染回归验证核心能力',
+    ],
+    docLink: '/guide/06-remote-customization-and-qa/',
+    docLabel: '阅读多机联邦与热定制手册 →',
+    primaryImg: '/images/docs/14-settings-machines.png',
+    primaryCaption: 'SSH 远程主机统一接入与管理',
+    secondaryImg: '/images/docs/13-settings-look.png',
+    secondaryCaption: '外观、主题、布局与实时界面缩放设置',
+  },
+];
+---
+
+<section class="h2-section" id="features">
+  <div class="h2-container">
+    <div class="h2-section-header h2-section-header--center">
+      <span class="h2-eyebrow">核心能力全景</span>
+      <h2 class="h2-section-title">为高强度 AI 软件工程打造的五大护城河</h2>
+      <p class="h2-section-desc">
+        每一项功能都来自真实多项目并发与大规模代码库的实战痛点——点击下方标签切换查看真实桌面端与
+        Drove Web 运行截图（点击图片可放大）。
+      </p>
+    </div>
+
+    <div class="ft-tabs" role="tablist" aria-label="Herdr2 核心功能">
+      {
+        features.map((f, idx) => (
+          <button
+            type="button"
+            role="tab"
+            class={`ft-tab ${idx === 0 ? 'is-active' : ''}`}
+            aria-selected={idx === 0 ? 'true' : 'false'}
+            data-ft-tab={f.id}
+          >
+            <span>{f.tab}</span>
+          </button>
+        ))
+      }
+    </div>
+
+    <div class="ft-panels">
+      {
+        features.map((f, idx) => (
+          <div class={`ft-panel ${idx === 0 ? 'is-active' : ''}`} data-ft-panel={f.id}>
+            <div class="ft-grid">
+              <div class="ft-info">
+                <span class="ft-badge">{f.badge}</span>
+                <h3>{f.title}</h3>
+                <p class="ft-desc">{f.desc}</p>
+                <ul class="ft-bullets">
+                  {f.bullets.map((b) => (
+                    <li>{b}</li>
+                  ))}
+                </ul>
+                <a class="h2-btn h2-btn--secondary ft-link" href={f.docLink}>
+                  {f.docLabel}
+                </a>
+              </div>
+
+              <div class="ft-media">
+                <div class="h2-window">
+                  <div class="h2-window-bar">
+                    <div class="h2-window-dots" aria-hidden="true">
+                      <span></span><span></span><span></span>
+                    </div>
+                    <span>{f.primaryCaption}</span>
+                    <span>点击放大</span>
+                  </div>
+                  <img
+                    src={f.primaryImg}
+                    alt={f.primaryCaption}
+                    class="h2-zoomable"
+                    loading="lazy"
+                    decoding="async"
+                  />
+                </div>
+
+                <div class="ft-secondary">
+                  <div class="h2-window">
+                    <div class="h2-window-bar">
+                      <span>{f.secondaryCaption}</span>
+                      <span>实拍截图</span>
+                    </div>
+                    <img
+                      src={f.secondaryImg}
+                      alt={f.secondaryCaption}
+                      class="h2-zoomable"
+                      loading="lazy"
+                      decoding="async"
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        ))
+      }
+    </div>
+  </div>
+</section>
+
+<style>
+  .ft-tabs {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.55rem;
+    margin-bottom: 2.25rem;
+  }
+
+  .ft-tab {
+    padding: 0.58rem 1.05rem;
+    border-radius: 999px;
+    border: 1px solid var(--h2-border);
+    background: var(--h2-surface-subtle);
+    color: var(--h2-text-muted);
+    font-size: 0.88rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 150ms ease;
+  }
+
+  .ft-tab:hover {
+    color: var(--h2-text);
+    border-color: var(--h2-border-strong);
+  }
+
+  .ft-tab.is-active {
+    background: var(--h2-accent);
+    border-color: var(--h2-accent);
+    color: #ffffff;
+    box-shadow: 0 6px 18px -6px rgba(2, 132, 199, 0.55);
+  }
+
+  :root[data-theme='dark'] .ft-tab.is-active {
+    color: #0b111a;
+  }
+
+  .ft-panel {
+    display: none;
+  }
+
+  .ft-panel.is-active {
+    display: block;
+    animation: ftFadeIn 220ms ease-out;
+  }
+
+  @keyframes ftFadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(6px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .ft-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.35fr);
+    gap: 2.2rem;
+    align-items: start;
+  }
+
+  .ft-badge {
+    display: inline-block;
+    font-family: var(--sl-font-mono);
+    font-size: 0.76rem;
+    font-weight: 600;
+    color: var(--h2-accent);
+    background: var(--h2-accent-soft);
+    border: 1px solid var(--h2-accent-border);
+    padding: 0.2rem 0.65rem;
+    border-radius: 6px;
+    margin-bottom: 0.8rem;
+  }
+
+  .ft-info h3 {
+    margin: 0 0 0.85rem;
+    font-size: clamp(1.35rem, 2.2vw, 1.75rem);
+    font-weight: 700;
+    line-height: 1.3;
+    letter-spacing: -0.02em;
+  }
+
+  .ft-desc {
+    margin: 0 0 1.2rem;
+    color: var(--h2-text-muted);
+    font-size: 0.96rem;
+    line-height: 1.75;
+  }
+
+  .ft-bullets {
+    margin: 0 0 1.5rem;
+    padding: 0;
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.7rem;
+  }
+
+  .ft-bullets li {
+    position: relative;
+    padding-left: 1.35rem;
+    font-size: 0.92rem;
+    color: var(--h2-text);
+  }
+
+  .ft-bullets li::before {
+    content: '✓';
+    position: absolute;
+    left: 0;
+    color: var(--h2-accent);
+    font-weight: 700;
+  }
+
+  .ft-media {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .ft-media img {
+    cursor: zoom-in;
+  }
+
+  .ft-secondary {
+    max-width: 82%;
+    margin-left: auto;
+  }
+
+  @media (max-width: 920px) {
+    .ft-grid {
+      grid-template-columns: 1fr;
+    }
+    .ft-secondary {
+      max-width: 100%;
+      margin-left: 0;
+    }
+  }
+</style>
