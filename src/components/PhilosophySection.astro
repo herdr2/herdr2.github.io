@@ -261,15 +261,34 @@ const pillars = [
   }
 
   @media (max-width: 820px) {
+    .story-card {
+      padding: 1.25rem;
+      border-radius: 14px;
+    }
+    .story-header {
+      margin-bottom: 1.35rem;
+    }
+    .story-title {
+      font-size: 1.42rem;
+    }
     .metaphor-grid {
       grid-template-columns: 1fr;
+      gap: 0.65rem;
+    }
+    .metaphor-item {
+      padding: 1.1rem 1.15rem;
     }
     .metaphor-arrow {
       transform: rotate(90deg);
-      padding-block: 0.15rem;
+      padding-block: 0;
+      font-size: 1.15rem;
     }
     .pillar-grid {
       grid-template-columns: 1fr;
+      gap: 0.9rem;
+    }
+    .pillar-card {
+      padding: 1.2rem;
     }
   }
 </style>

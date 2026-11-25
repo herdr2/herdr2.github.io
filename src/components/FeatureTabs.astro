@@ -104,20 +104,22 @@ const features = [
       </p>
     </div>
 
-    <div class="ft-tabs" role="tablist" aria-label="Herdr2 核心功能">
-      {
-        features.map((f, idx) => (
-          <button
-            type="button"
-            role="tab"
-            class={`ft-tab ${idx === 0 ? 'is-active' : ''}`}
-            aria-selected={idx === 0 ? 'true' : 'false'}
-            data-ft-tab={f.id}
-          >
-            <span>{f.tab}</span>
-          </button>
-        ))
-      }
+    <div class="ft-tabs-wrap">
+      <div class="ft-tabs" role="tablist" aria-label="Herdr2 核心功能">
+        {
+          features.map((f, idx) => (
+            <button
+              type="button"
+              role="tab"
+              class={`ft-tab ${idx === 0 ? 'is-active' : ''}`}
+              aria-selected={idx === 0 ? 'true' : 'false'}
+              data-ft-tab={f.id}
+            >
+              <span>{f.tab}</span>
+            </button>
+          ))
+        }
+      </div>
     </div>
 
     <div class="ft-panels">
@@ -182,30 +184,40 @@ const features = [
 </section>
 
 <style>
+  .ft-tabs-wrap {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 2.25rem;
+  }
+
   .ft-tabs {
     display: inline-flex;
-    flex-wrap: wrap;
-    justify-content: center;
+    flex-wrap: nowrap;
     gap: 0.25rem;
     padding: 0.3rem;
-    margin: 0 auto 2.5rem;
     border-radius: 12px;
     background: var(--h2-surface-muted);
     border: 1px solid var(--h2-border);
-    position: relative;
-    left: 50%;
-    transform: translateX(-50%);
     max-width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+
+  .ft-tabs::-webkit-scrollbar {
+    display: none;
   }
 
   .ft-tab {
-    padding: 0.5rem 1rem;
+    padding: 0.5rem 0.95rem;
     border-radius: 9px;
     border: 1px solid transparent;
     background: transparent;
     color: var(--h2-text-muted);
-    font-size: 0.855rem;
+    font-size: 0.84rem;
     font-weight: 500;
+    white-space: nowrap;
+    flex-shrink: 0;
     cursor: pointer;
     transition: all 160ms ease;
   }

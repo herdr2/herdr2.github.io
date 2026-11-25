@@ -136,7 +136,24 @@ const presets = [
 
   @media (max-width: 640px) {
     .preset-box {
-      padding: 1.4rem;
+      padding: 1.25rem;
+      border-radius: 14px;
+    }
+    .preset-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 0.5rem;
+    }
+    .preset-chip {
+      padding: 0.52rem 0.65rem;
+      gap: 0.4rem;
+    }
+    .preset-chip code {
+      font-size: 0.8rem;
+    }
+    .preset-label {
+      font-size: 0.68rem;
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
   }
 </style>

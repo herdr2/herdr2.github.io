@@ -374,4 +374,46 @@ const codeTabs = [
     flex-wrap: wrap;
     gap: 0.75rem;
   }
+
+  @media (max-width: 680px) {
+    .qs-code-header {
+      padding: 0.55rem 0.75rem;
+      gap: 0.5rem;
+    }
+    .qs-tabs {
+      flex-wrap: nowrap;
+      overflow-x: auto;
+      max-width: 100%;
+      scrollbar-width: none;
+    }
+    .qs-tabs::-webkit-scrollbar {
+      display: none;
+    }
+    .qs-tab {
+      white-space: nowrap;
+      flex-shrink: 0;
+      font-size: 0.76rem;
+      padding: 0.32rem 0.65rem;
+    }
+    .qs-copy-btn {
+      margin-left: auto;
+      font-size: 0.74rem;
+    }
+    .qs-pre {
+      padding: 0.95rem 1rem;
+      font-size: 0.76rem;
+      line-height: 1.62;
+    }
+    .ack-banner {
+      padding: 1.25rem;
+      gap: 1rem;
+    }
+    .ack-actions {
+      width: 100%;
+      flex-direction: column;
+    }
+    .ack-actions .h2-btn {
+      width: 100%;
+    }
+  }
 </style>

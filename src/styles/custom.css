@@ -216,41 +216,44 @@ body,
   margin-block: 1.05rem;
 }
 
-.sl-markdown-content h2 {
-  margin-top: 2.9rem !important;
+.sl-markdown-content h2:not(:where(.not-content *)) {
+  margin-top: 2.75rem !important;
   margin-bottom: 1rem !important;
   padding-top: 1.5rem;
+  padding-bottom: 0 !important;
   border-top: 1px solid var(--h2-border);
-  font-size: 1.45rem !important;
+  border-bottom: none !important;
+  font-size: 1.42rem !important;
   font-weight: 700 !important;
   letter-spacing: -0.024em;
-  line-height: 1.32;
+  line-height: 1.34 !important;
   color: var(--h2-text);
   scroll-margin-top: 5rem;
 }
 
-.sl-markdown-content > h2:first-child {
-  margin-top: 0.5rem !important;
+.sl-markdown-content > h2:first-child:not(:where(.not-content *)) {
+  margin-top: 0.25rem !important;
   padding-top: 0;
   border-top: none;
 }
 
-.sl-markdown-content h3 {
-  margin-top: 2.1rem !important;
-  margin-bottom: 0.75rem !important;
-  font-size: 1.15rem !important;
+.sl-markdown-content h3:not(:where(.not-content *)) {
+  margin-top: 2rem !important;
+  margin-bottom: 0.7rem !important;
+  font-size: 1.14rem !important;
   font-weight: 650 !important;
   letter-spacing: -0.018em;
-  line-height: 1.38;
+  line-height: 1.4 !important;
   color: var(--h2-text);
   scroll-margin-top: 5rem;
 }
 
-.sl-markdown-content h4 {
-  margin-top: 1.55rem !important;
+.sl-markdown-content h4:not(:where(.not-content *)) {
+  margin-top: 1.5rem !important;
   margin-bottom: 0.5rem !important;
   font-size: 0.98rem !important;
   font-weight: 650 !important;
+  line-height: 1.45 !important;
   color: var(--h2-text);
   scroll-margin-top: 5rem;
 }
@@ -260,29 +263,31 @@ body,
   font-weight: 650;
 }
 
-.sl-markdown-content a:not(.sl-anchor-link) {
+.sl-markdown-content a:not(:where(.not-content *)):not(.sl-anchor-link) {
   color: var(--h2-accent);
   text-decoration: underline;
   text-decoration-color: color-mix(in srgb, var(--h2-accent) 35%, transparent);
   text-underline-offset: 3.5px;
   text-decoration-thickness: 1.5px;
+  overflow-wrap: anywhere;
   transition: text-decoration-color 150ms ease, color 150ms ease;
 }
 
-.sl-markdown-content a:not(.sl-anchor-link):hover {
+.sl-markdown-content a:not(:where(.not-content *)):not(.sl-anchor-link):hover {
   color: var(--h2-accent-strong);
   text-decoration-color: var(--h2-accent-strong);
 }
 
-/* Lists with crisp vertical spacing */
-.sl-markdown-content ul,
-.sl-markdown-content ol {
-  margin-block: 1rem;
-  padding-left: 1.45rem;
+/* Lists with crisp vertical spacing (override base.css margin-left double indent) */
+.sl-markdown-content ul:not(:where(.not-content *)),
+.sl-markdown-content ol:not(:where(.not-content *)) {
+  margin-block: 1rem !important;
+  margin-left: 0 !important;
+  padding-left: 1.35rem !important;
 }
 
-.sl-markdown-content li {
-  margin-block: 0.45rem;
+.sl-markdown-content li:not(:where(.not-content *)) {
+  margin-block: 0.42rem !important;
   line-height: 1.8;
 }
 
@@ -297,22 +302,24 @@ body,
   margin-block: 2.25rem;
 }
 
-/* Inline code badges */
-.sl-markdown-content :not(pre) > code {
+/* Inline code badges (prevent long paths/URLs from overflowing mobile viewport) */
+.sl-markdown-content :not(pre) > code:not(:where(.not-content *)) {
   font-family: var(--sl-font-mono);
   font-size: 0.84em;
   font-weight: 500;
-  padding: 0.14rem 0.42rem;
+  padding: 0.14rem 0.4rem;
   border-radius: 6px;
   background: var(--h2-inline-code-bg);
   border: 1px solid var(--h2-inline-code-border);
   color: var(--h2-text);
+  overflow-wrap: anywhere;
   word-break: break-word;
 }
 
 /* Expressive Code blocks */
 .sl-markdown-content .expressive-code {
-  margin-block: 1.4rem !important;
+  margin-block: 1.35rem !important;
+  max-width: 100%;
 }
 
 .sl-markdown-content .expressive-code .frame {
@@ -323,34 +330,35 @@ body,
 }
 
 .sl-markdown-content .expressive-code pre {
-  font-size: 0.855rem !important;
-  line-height: 1.68 !important;
+  font-size: 0.84rem !important;
+  line-height: 1.66 !important;
 }
 
-/* Blockquotes (Lead notes / summary callouts) */
-.sl-markdown-content blockquote {
-  margin-block: 1.4rem;
-  padding: 0.9rem 1.2rem;
-  border-left: 3px solid var(--h2-accent);
+/* Blockquotes (override base.css italic style for crisp Chinese & English readability) */
+.sl-markdown-content blockquote:not(:where(.not-content *)) {
+  margin-block: 1.35rem !important;
+  padding: 0.85rem 1.15rem !important;
+  border-left: 3px solid var(--h2-accent) !important;
   border-radius: 0 10px 10px 0;
   background: var(--h2-surface-subtle);
   color: var(--h2-text-muted);
-  font-size: 0.94rem;
+  font-style: normal !important;
+  font-size: 0.93rem;
   line-height: 1.78;
 }
 
 .sl-markdown-content blockquote > p:first-child {
-  margin-top: 0;
+  margin-top: 0 !important;
 }
 
 .sl-markdown-content blockquote > p:last-child {
-  margin-bottom: 0;
+  margin-bottom: 0 !important;
 }
 
 /* Starlight Asides (:::tip, :::note, :::caution, :::danger) */
 .sl-markdown-content .starlight-aside {
-  margin-block: 1.5rem;
-  padding: 1rem 1.25rem;
+  margin-block: 1.45rem;
+  padding: 0.95rem 1.15rem;
   border-radius: 12px;
   border: 1px solid var(--h2-border-strong);
   border-left-width: 3px;
@@ -386,69 +394,76 @@ body,
 }
 
 .sl-markdown-content .starlight-aside__content {
-  font-size: 0.92rem;
+  font-size: 0.91rem;
   line-height: 1.76;
   color: var(--h2-text-muted);
 }
 
-/* Editorial Tables — Full-width, hairline dividers, hover rows */
-.sl-markdown-content table {
-  display: table;
+/* Editorial Tables — override base.css heavy grid borders cleanly */
+.sl-markdown-content table:not(:where(.not-content *)) {
+  display: block;
   width: 100%;
-  margin-block: 1.5rem;
-  border-collapse: separate;
+  max-width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  margin-block: 1.45rem;
+  border-collapse: separate !important;
   border-spacing: 0;
-  font-size: 0.885rem;
+  font-size: 0.875rem;
   line-height: 1.65;
   border: 1px solid var(--h2-border-strong);
   border-radius: 12px;
-  overflow: hidden;
   background: var(--h2-surface);
   box-shadow: var(--h2-shadow-sm);
 }
 
-@media (max-width: 720px) {
-  .sl-markdown-content table {
-    display: block;
-    overflow-x: auto;
-    -webkit-overflow-scrolling: touch;
-  }
-}
-
-.sl-markdown-content thead {
+.sl-markdown-content table:not(:where(.not-content *)) > thead {
   background: var(--h2-surface-subtle);
 }
 
-.sl-markdown-content th {
-  padding: 0.72rem 0.95rem;
+.sl-markdown-content table:not(:where(.not-content *)) > thead > tr {
+  border: none !important;
+}
+
+.sl-markdown-content table:not(:where(.not-content *)) > thead > tr > th {
+  padding: 0.7rem 0.95rem !important;
   text-align: left;
-  font-size: 0.8rem;
-  font-weight: 650;
+  font-size: 0.79rem;
+  font-weight: 650 !important;
   letter-spacing: 0.02em;
   color: var(--h2-text);
-  border-bottom: 1px solid var(--h2-border-strong);
-  border-inline: none;
+  border: none !important;
+  border-bottom: 1px solid var(--h2-border-strong) !important;
   white-space: nowrap;
 }
 
-.sl-markdown-content td {
-  padding: 0.72rem 0.95rem;
-  vertical-align: top;
-  color: var(--h2-text-secondary);
-  border-bottom: 1px solid var(--h2-border);
-  border-inline: none;
-}
-
-.sl-markdown-content tbody tr:last-child td {
-  border-bottom: none;
-}
-
-.sl-markdown-content tbody tr {
+.sl-markdown-content table:not(:where(.not-content *)) > tbody > tr {
+  border: none !important;
+  background: transparent !important;
   transition: background-color 120ms ease;
 }
 
-.sl-markdown-content tbody tr:hover {
-  background: var(--h2-surface-subtle);
+.sl-markdown-content table:not(:where(.not-content *)) > tbody > tr > td {
+  padding: 0.7rem 0.95rem !important;
+  vertical-align: top;
+  color: var(--h2-text-secondary);
+  border: none !important;
+  border-bottom: 1px solid var(--h2-border) !important;
+  min-width: 7rem;
+}
+
+.sl-markdown-content table:not(:where(.not-content *)) > tbody > tr:last-child > td {
+  border-bottom: none !important;
+}
+
+.sl-markdown-content table:not(:where(.not-content *)) > tbody > tr:hover {
+  background: var(--h2-surface-subtle) !important;
+}
+
+/* Remove extra top/bottom padding on splash landing markdown-wrapper */
+.markdown-wrapper:has(.h2-landing) {
+  padding-top: 0 !important;
+  padding-bottom: 0 !important;
 }
 
 /* Polished Screenshots & SVG Diagrams in Docs (click-to-zoom enabled) */
@@ -843,10 +858,91 @@ main:has(.h2-landing) {
 
 @media (max-width: 680px) {
   .h2-section {
-    padding-block: 3.4rem;
+    padding-block: 2.75rem;
+  }
+  .h2-section--hero {
+    padding-top: 2rem;
+    padding-bottom: 2.75rem;
+  }
+  .h2-section-header {
+    margin-bottom: 1.85rem;
+  }
+  .h2-section-title {
+    font-size: 1.55rem;
+    line-height: 1.24;
+  }
+  .h2-section-desc {
+    font-size: 0.92rem;
+    line-height: 1.68;
+  }
+  .h2-card {
+    padding: 1.15rem;
   }
   .h2-grid-3,
   .h2-grid-2 {
     grid-template-columns: 1fr;
+    gap: 0.9rem;
+  }
+  .h2-btn-row {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.6rem;
+  }
+  .h2-btn {
+    width: 100%;
+    min-height: 44px;
+    padding: 0.68rem 1.1rem;
+    font-size: 0.9rem;
+  }
+  .h2-window-bar {
+    padding: 0.5rem 0.75rem;
+    font-size: 0.7rem;
+    gap: 0.5rem;
+  }
+  .h2-window-bar > span:nth-child(2) {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    min-width: 0;
+  }
+  .h2-window-bar > span:last-child {
+    display: none;
+  }
+  .h2-eyebrow {
+    font-size: 0.72rem;
+    padding: 0.25rem 0.7rem;
+    max-width: 100%;
+    text-align: center;
+    line-height: 1.4;
+  }
+  /* Mobile Doc Typography */
+  .sl-markdown-content {
+    font-size: 0.94rem;
+    line-height: 1.78;
+  }
+  .sl-markdown-content h2:not(:where(.not-content *)) {
+    font-size: 1.28rem !important;
+    margin-top: 2.2rem !important;
+    padding-top: 1.2rem;
+  }
+  .sl-markdown-content h3:not(:where(.not-content *)) {
+    font-size: 1.06rem !important;
+    margin-top: 1.65rem !important;
+  }
+  .sl-markdown-content table:not(:where(.not-content *)) {
+    font-size: 0.82rem;
+  }
+  .sl-markdown-content table:not(:where(.not-content *)) > thead > tr > th,
+  .sl-markdown-content table:not(:where(.not-content *)) > tbody > tr > td {
+    padding: 0.55rem 0.72rem !important;
+  }
+  .sl-markdown-content .starlight-aside {
+    padding: 0.85rem 1rem;
+  }
+  .sl-markdown-content blockquote:not(:where(.not-content *)) {
+    padding: 0.75rem 0.95rem !important;
+  }
+  .h2-lightbox {
+    padding: 0.75rem;
   }
 }

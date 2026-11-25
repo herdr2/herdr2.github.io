@@ -291,6 +291,42 @@ const installPrompt = isEn
   .hero-screenshot {
     cursor: zoom-in;
   }
+
+  @media (max-width: 640px) {
+    .hero-title {
+      font-size: 1.85rem;
+      margin: 1rem 0 0.8rem;
+      line-height: 1.18;
+    }
+    .hero-subtitle {
+      font-size: 0.92rem;
+      line-height: 1.7;
+      margin-bottom: 1.35rem;
+    }
+    .hero-install-box {
+      margin-top: 1.35rem;
+      border-radius: 12px;
+    }
+    .hero-install-top {
+      padding: 0.55rem 0.75rem;
+      gap: 0.45rem;
+    }
+    .hero-install-label > span:not(.hero-skill-badge) {
+      display: none;
+    }
+    .hero-install-cmd {
+      padding: 0.75rem 0.85rem;
+      font-size: 0.76rem;
+      line-height: 1.6;
+    }
+    .hero-stage {
+      margin-top: 1.75rem;
+    }
+    .hero-bezel {
+      padding: 4px;
+      border-radius: 14px;
+    }
+  }
 </style>
 
 <script>
